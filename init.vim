@@ -98,7 +98,7 @@ let g:oceanic_next_terminal_italic = 1
 let g:nord_italic = 1
 let g:nord_underline = 1
 let g:nord_italic_comments = 1
-colorscheme nord
+colorscheme OceanicNext
 
 set encoding=UTF-8
 
