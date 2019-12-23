@@ -40,6 +40,7 @@ Plug 'pboettch/vim-cmake-syntax'
 " ** CMakeLists syntax
 Plug 'pboettch/vim-cmake-syntax'
 " ** javascript
+Plug 'othree/yajs.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'mxw/vim-jsx'
@@ -191,6 +192,8 @@ set shortmess+=c
 set signcolumn=yes
 
 " ********************
+
+nnoremap <C-t> :call OpenFloatTerm()<CR>
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -613,14 +616,15 @@ function! OpenFloatTerm()
     \ 'height': height,
     \ 'style': 'minimal'
     \ }
+
   let buf = nvim_create_buf(v:false, v:true)
   let win = nvim_open_win(buf, v:true, opts)
   terminal
-  startinsert
+  startinsert ""
+
   " Hook up TermClose event to close both terminal and border windows
   autocmd TermClose * ++once :q | call nvim_win_close(s:border_win, v:true)
 endfunction
-nnoremap <C-t> :call OpenFloatTerm()<CR>
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -699,18 +703,6 @@ map <leader>n :NERDTreeToggle<CR>
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-let g:javascript_conceal_function             = "ƒ"
-let g:javascript_conceal_null                 = "ø"
-let g:javascript_conceal_return               = "⇛"
-let g:javascript_conceal_undefined            = "¿"
-let g:javascript_conceal_NaN                  = "ℕ"
-let g:javascript_conceal_static               = "•"
-let g:javascript_conceal_super                = "Ω"
-let g:javascript_conceal_arrow_function       = "⇒"
-let g:javascript_conceal_noarg_arrow_function = "🞅"
-let g:javascript_conceal_underscore_arrow_function = "🞅"
-set conceallevel=1
-map <leader>l :exec &conceallevel ? "set conceallevel=0" : "set conceallevel=1"<CR>
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow = 1
