@@ -21,6 +21,7 @@ Plug 'mhartington/oceanic-next'
 Plug 'morhetz/gruvbox'
 Plug 'sainnhe/gruvbox-material'
 Plug 'arcticicestudio/nord-vim'
+Plug 'haishanh/night-owl.vim'
 
 " Add icons
 Plug 'ryanoasis/vim-devicons'
@@ -45,9 +46,18 @@ Plug 'pangloss/vim-javascript'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'mxw/vim-jsx'
 Plug 'ianks/vim-tsx'
+Plug 'yuezk/vim-js'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'MaxMEllon/vim-jsx-pretty'
 " ** cpp 
 Plug 'bfrg/vim-cpp-modern'
 Plug 'octol/vim-cpp-enhanced-highlight'
+" ** mdx
+Plug 'findango/vim-mdx'
+" ** markdown
+Plug 'tpope/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 " Auto completion that using server
 " Switch form YCM
