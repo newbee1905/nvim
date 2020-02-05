@@ -58,6 +58,9 @@ Plug 'findango/vim-mdx'
 Plug 'tpope/vim-markdown'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+" ** golang
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 
 " Auto completion that using server
 " Switch form YCM
@@ -108,7 +111,7 @@ let g:oceanic_next_terminal_italic = 1
 let g:nord_italic = 1
 let g:nord_underline = 1
 let g:nord_italic_comments = 1
-colorscheme OceanicNext
+colorscheme nord
 
 set encoding=UTF-8
 
@@ -132,6 +135,8 @@ set softtabstop=2
 set expandtab
 set noshiftround
 
+" Enable mouse support
+set mouse=a
 " Display 5 lines above/below the cursor when scrolling with a mouse.
 set scrolloff=5
 " Fixes common backspace problems
