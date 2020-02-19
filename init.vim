@@ -60,7 +60,10 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 " ** golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
+" gdscript
+Plug 'calviken/vim-gdscript3'
+" rust
+Plug 'rust-lang/rust.vim'
 
 " Auto completion that using server
 " Switch form YCM
