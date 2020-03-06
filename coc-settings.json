@@ -2,7 +2,7 @@
   "diagnostic.errorSign": "✘",
   "diagnostic.warningSign": "",
   "diagnostic.infoSign": "",
-  "eslint.enable": false,
+  "eslint.enable": true,
 	"eslint.autoFixOnSave": true,
   "eslint.options": {
     "configFile": ".eslintrc.json"
@@ -10,12 +10,15 @@
   "coc.preferences.formatOnSaveFiletypes": [
 		"css",
 		"Markdown",
-		"html"
+		"html",
+    "js"
 	],
   "prettier.singleQuote": true,
 	"prettier.useTabs": true,
   "prettier.eslintIntegration": true,
+  "tsserver.npm": "/usr/bin/npm",
   "tsserver.enableJavascript": true,
+  "tsserver.enable": true,
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.preferences.quoteStyle": "double",
@@ -38,5 +41,6 @@
 				}
 			}
 		}
-	}
+  },
+  "coc.preferences.extensionUpdateCheck": "daily"
 }
