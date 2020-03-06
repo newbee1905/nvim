@@ -41,13 +41,13 @@ Plug 'pboettch/vim-cmake-syntax'
 " ** CMakeLists syntax
 Plug 'pboettch/vim-cmake-syntax'
 " ** javascript
-Plug 'othree/yajs.vim'
+" Plug 'othree/yajs.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'mxw/vim-jsx'
-Plug 'ianks/vim-tsx'
+" Plug 'ianks/vim-tsx'
 Plug 'yuezk/vim-js'
-Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'HerringtonDarkholme/yats.vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
 " ** cpp 
 Plug 'bfrg/vim-cpp-modern'
@@ -99,6 +99,7 @@ endif
 
 " force 256 colors on the terminal
 set t_Co=256
+let $curColor = "OceanicNext"
 syntax on
 " Gruvbox-material theme set up
 let g:gruvbox_material_background = 'hard'
@@ -114,7 +115,7 @@ let g:oceanic_next_terminal_italic = 1
 let g:nord_italic = 1
 let g:nord_underline = 1
 let g:nord_italic_comments = 1
-colorscheme nord
+colorscheme $curColor
 
 set encoding=UTF-8
 
@@ -319,6 +320,8 @@ function! ActiveStatusLine()
 		let l:statusline.="%5*"
 	elseif (mode() =~# '\v(c|ce|cv)')
 		let l:statusline.="%8*"
+	elseif (mode() =~# '\v(v|V|^V)')
+		let l:statusline.="%2*"
 	else
 		let l:statusline.="%3*"
 	endif
@@ -410,13 +413,31 @@ augroup statusline
 augroup end
 
 hi User1 ctermbg=NONE ctermfg=NONE   guibg=NONE guifg=NONE
-hi User3 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#2e3440
-hi User4 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#2e3440
-hi User5 ctermbg=cyan  ctermfg=black guibg=#81a1c1 guifg=#2e3440
-hi User6 ctermbg=red  ctermfg=white guibg=#bf616a guifg=#d8dee9
-hi User7 ctermbg=178  ctermfg=white guibg=#d08770 guifg=#d8dee9
-hi User8 ctermbg=blue  ctermfg=green guibg=#88c0d0 guifg=#2e3440
-
+if $curColor ==? 'nord'
+	hi User2 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#2e3440
+	hi User3 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#2e3440
+	hi User4 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#2e3440
+	hi User5 ctermbg=cyan  ctermfg=black guibg=#81a1c1 guifg=#2e3440
+	hi User6 ctermbg=red  ctermfg=white guibg=#bf616a guifg=#d8dee9
+	hi User7 ctermbg=178  ctermfg=white guibg=#d08770 guifg=#d8dee9
+	hi User8 ctermbg=blue  ctermfg=green guibg=#88c0d0 guifg=#2e3440
+elseif $curColor ==? 'OceanicNext'
+	hi User2 ctermbg=white  ctermfg=black guibg=#fac863 guifg=#2e3440
+	hi User3 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#1b2b34
+	hi User4 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#1b2b34
+	hi User5 ctermbg=cyan  ctermfg=black guibg=#6699cc guifg=#d8dee9
+	hi User6 ctermbg=red  ctermfg=white guibg=#ec5f67 guifg=#d8dee9
+	hi User7 ctermbg=178  ctermfg=white guibg=#99c794 guifg=#1b2b34
+	hi User8 ctermbg=blue  ctermfg=green guibg=#5fb3b3 guifg=#1b2b34
+else
+	hi User2 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#2e3440
+	hi User3 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#2e3440
+	hi User4 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#2e3440
+	hi User5 ctermbg=cyan  ctermfg=black guibg=#81a1c1 guifg=#2e3440
+	hi User6 ctermbg=red  ctermfg=white guibg=#bf616a guifg=#d8dee9
+	hi User7 ctermbg=178  ctermfg=white guibg=#d08770 guifg=#d8dee9
+	hi User8 ctermbg=blue  ctermfg=green guibg=#88c0d0 guifg=#2e3440
+endif
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 " ------------------------------------------------------------------
