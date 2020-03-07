@@ -1,10 +1,47 @@
 {
-  "diagnostic.errorSign": "✘",
-  "diagnostic.warningSign": "",
-  "diagnostic.infoSign": "",
-  "npm.binPath": "/home/newbee/.nvm/versions/node/v13.10.1/bin/npm",
-  "tsserver.npm": "/home/newbee/.nvm/versions/node/v13.10.1/bin/npm",
-  "tsserver.enableJavascript": true,
-  "tsserver.enable": true,
-  "tsserver.trace.server": "verbose"
+	"diagnostic.errorSign": "✘",
+	"diagnostic.warningSign": "",
+	"diagnostic.infoSign": "",
+	"eslint.enable": false,
+	"eslint.autoFixOnSave": true,
+	"eslint.options": {
+		"configFile": ".eslintrc.json"
+	},
+	"coc.preferences.formatOnSaveFiletypes": [
+		"css",
+		"Markdown",
+		"json",
+		"javascript"
+	],
+	"prettier.singleQuote": true,
+	"prettier.useTabs": true,
+	"prettier.eslintIntegration": true,
+	"typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+	"typescript.preferences.quoteStyle": "double",
+	"typescript.referencesCodeLens.enable": false,
+	"tslint.autoFixOnSave": true,
+	"npm.binPath": "/home/newbee/.nvm/versions/node/v13.10.1/bin/npm",
+	"tsserver.npm": "/home/newbee/.nvm/versions/node/v13.10.1/bin/npm",
+	"tsserver.enableJavascript": true,
+	"tsserver.enable": true,
+	"tsserver.trace.server": "verbose",
+	"languageserver": {
+		"ccls": {
+			"command": "ccls",
+			"filetypes": ["c", "cpp", "objc", "objcpp"],
+			"rootPatterns": [
+				".ccls",
+				"compile_commands.json",
+				".vim/",
+				".git/",
+				".hg/"
+			],
+			"initializationOptions": {
+				"cache": {
+					"directory": "/tmp/ccls"
+				}
+			}
+		}
+	}
 }
