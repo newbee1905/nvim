@@ -20,11 +20,12 @@ if dein#load_state('~/.cache/dein')
 
   " ######## Add Colorscheme ########
   call dein#add('mhartington/oceanic-next')
-  " #################################
   
   " ####### Add auto compltetion coc nvim #######
   call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
-  " #############################################
+
+  " ###### Add vim lightline and component ######
+  call dein#add('lambdalisue/battery.vim')
   
   call dein#end()
   call dein#save_state()
@@ -263,9 +264,6 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
 " Using CocList
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
@@ -290,6 +288,16 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " ------------------------------------------------------------------
 " Customize my statusline
 " ------------------------------------------------------------------
+
+let g:battery_level = system('acpi | grep -oP "(\d+)%" | tr -d "\n"')
+function! SetBatteryLevel(timer_id)
+  let l:battery_level = system('acpi | grep -oP "(\d+)%" | tr -d "\n"')
+  if (battery_level != '')
+    let g:battery_level = l:battery_level
+    redraw!
+  endif
+  call timer_start(30000, 'SetBatteryLevel')
+endfunction
 
 " ********************
 " SYNTAX HIGHLIGHT GROUP
@@ -422,6 +430,12 @@ function! ActiveStatusLine()
 	endif
 	" Spacer
 	let l:statusline.="%1*%="
+	" Separator
+	let l:statusline.="%1*\ "
+	" Filename
+	let l:statusline.="%1*\ "
+	" Separator
+	let l:statusline.="%1*\ "
 	" Show syntax identifier, if any
 	if SyntaxItem() != ""
 		let l:statusline.="%4*\ %{SyntaxItem()}\ "
@@ -430,6 +444,10 @@ function! ActiveStatusLine()
 	endif
 	" File encoding
 	let l:statusline.="%7*\ %{(&fenc!=''?&fenc:&enc)}\ "
+	" Separator
+	let l:statusline.="%1*\ "
+	" Filename
+	let l:statusline.="%6*\ %{g:battery_level}\ "
 	" Separator
 	let l:statusline.="%1*\ "
 	" File format
@@ -509,6 +527,26 @@ else
 	hi User7 ctermbg=178  ctermfg=white guibg=#d08770 guifg=#d8dee9
 	hi User8 ctermbg=blue  ctermfg=green guibg=#88c0d0 guifg=#2e3440
 endif
+
+call SetBatteryLevel(0)
+
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+" ------------------------------------------------------------------
+" Customize my tabline
+" ------------------------------------------------------------------
+
+set showtabline=2  " Show tabline
+set guioptions-=e  " Don't use GUI tabline
+
+let g:battery#update_tabline = 1    " For tabline.
+
+let g:lightline.tabline = {
+  \   'left': [ ['tabs'] ],
+  \   'right': [ ['close', 'battery'] ]
+  \ }
+
+set tabline+=%{battery#component()}
+
+" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
