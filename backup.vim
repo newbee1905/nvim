@@ -56,7 +56,6 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'findango/vim-mdx'
 " ** markdown
 Plug 'tpope/vim-markdown'
-Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 " ** golang
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -245,7 +244,7 @@ let g:currentmode={
 	\'no' : 'Normal/Op/Pend',
 	\'v'  : 'Visual',
 	\'V'  : 'Visual/Line',
-	\'^V' : 'Visual/Block',
+  \'^V' : 'Visual/Block',
 	\'s'  : 'Select',
 	\'S'  : 'Select/Line',
 	\'^S' : 'Select/Block',

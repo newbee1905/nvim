@@ -18,19 +18,39 @@ if dein#load_state('~/.cache/dein')
 
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
+  " ###### Add git fugitive ######
+  call dein#add('tpope/vim-fugitive')
+
   " ######## Add Colorscheme ########
   call dein#add('mhartington/oceanic-next')
+  call dein#add('morhetz/gruvbox')
+  call dein#add('deviantfero/wpgtk.vim')
+  call dein#add('dylanaraps/wal.vim')
   
   " ####### Add auto compltetion coc nvim #######
   call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
 
-  " ###### Add vim lightline and component ######
-  call dein#add('lambdalisue/battery.vim')
+  " ###### Add unicode && emoji ######
+  call dein#add('chrisbra/unicode.vim')
+
+  " ###### Add commentary #######
+  call dein#add('tpope/vim-commentary')
+
+  " ###### Programming Syntax ######
+    "" Color highlighting
+    call dein#add('ap/vim-css-color')
+    "" Javascript
+    call dein#add('mxw/vim-jsx')
+    call dein#add('pangloss/vim-javascript')
+
+  " ###### Vim Airlines ######
+  call dein#add('vim-airline/vim-airline')
+  call dein#add('vim-airline/vim-airline-themes')
   
+
   call dein#end()
   call dein#save_state()
 endif
-
 
 " ------------------------------------------------------------------
 " My normal vim set up
@@ -44,13 +64,13 @@ filetype plugin indent on
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Or if you have Neovim >= 0.1.5
-if (has("termguicolors"))
- set termguicolors
-endif
+" if (has("termguicolors"))
+"  set termguicolors
+" endif
 
 " force 256 colors on the terminal
 set t_Co=256
-let $curColor = "OceanicNext"
+let $curColor = "wal"
 syntax on
 " Gruvbox-material theme set up
 let g:gruvbox_material_background = 'hard'
@@ -67,6 +87,8 @@ let g:nord_italic = 1
 let g:nord_underline = 1
 let g:nord_italic_comments = 1
 colorscheme $curColor
+highlight LineNr ctermbg=NONE ctermfg=white guibg=NONE guifg=white
+highlight SignColumn ctermbg=NONE guibg=NONE
 
 set encoding=UTF-8
 
@@ -165,6 +187,18 @@ set signcolumn=yes
 
 nnoremap <C-t> :call OpenFloatTerm()<CR>
 
+nnoremap <leader>t :tabnew
+
+" ********************
+" Add commentary to vim
+" ********************
+
+nmap <leader>/ gcc
+xmap <leader>/ gc
+
+" ********************
+
+
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 " ------------------------------------------------------------------
@@ -173,7 +207,7 @@ nnoremap <C-t> :call OpenFloatTerm()<CR>
 
 " let g:coc_node_path = '/usr/bin/node'
 " coc extensions
-let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver@1.4.9', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier']
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver@1.4.9', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier', 'coc-lua']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -289,246 +323,9 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " Customize my statusline
 " ------------------------------------------------------------------
 
-let g:battery_level = system('acpi | grep -oP "(\d+)%" | tr -d "\n"')
-function! SetBatteryLevel(timer_id)
-  let l:battery_level = system('acpi | grep -oP "(\d+)%" | tr -d "\n"')
-  if (battery_level != '')
-    let g:battery_level = l:battery_level
-    redraw!
-  endif
-  call timer_start(30000, 'SetBatteryLevel')
-endfunction
-
-" ********************
-" SYNTAX HIGHLIGHT GROUP
-" ********************
-
-function! SyntaxItem()
-	let l:syntaxname = synIDattr(synID(line("."),col("."),1),"name")
-
-	if l:syntaxname != ""
-		return l:syntaxname
-	else
-		return ""
-	endif
-endfunction
-
-" ********************
-
-" ********************
-" VIM MODES
-" ********************
-
-let g:currentmode={
-	\'n'  : 'Normal',
-	\'no' : 'Normal/Op/Pend',
-	\'v'  : 'Visual',
-	\'V'  : 'Visual/Line',
-	\'^V' : 'Visual/Block',
-	\'s'  : 'Select',
-	\'S'  : 'Select/Line',
-	\'^S' : 'Select/Block',
-	\'i'  : 'Insert',
-	\'R'  : 'Replace',
-	\'Rv' : 'Visual/Replace',
-	\'c'  : 'Command',
-	\'cv' : 'Vim Ex',
-	\'ce' : 'Ex',
-	\'r'  : 'Prompt',
-	\'rm' : 'More',
-	\'r?' : 'Confirm',
-	\'!'  : 'Shell',
-	\'t'  : 'Terminal'
-\}
-
-function! ModeCurrent() abort
-	let l:modecurrent = mode()
-	let l:modelist = toupper(get(g:currentmode, l:modecurrent, 'Visual/Block'))
-	let l:current_status_mode = l:modelist
-
-	return l:current_status_mode
-endfunction
-
-" ********************
-
-" ********************
-" READ ONLY FLAG 
-" ********************
-
-function! ReadOnly()
-	if &readonly || !&modifiable
-		return 'READONLY'
-	else
-		return ''
-	endif
-endfunction
-
-" ********************
-
-" ********************
-" MODIFIED CHECK FLAG
-" ********************
-
-function! Modified()
-	if &modified
-		return 'modified'
-	else
-		return ''
-	endif
-endfunction
-
-" ********************
-
-" ********************
-" NERDTREE
-" ********************
-
-let NERDTreeStatusline="%4*\ NERDTree\ %1*"
-
-" ********************
-
-" Always show statusline
 set laststatus=2
 
-" Format active statusline
-function! ActiveStatusLine()
-	" Reset statusline
-	let l:statusline=""
-	" Color by mode
-	if (mode() =~# '\v(n|no)')
-		let l:statusline.="%5*"
-	elseif (mode() =~# '\v(c|ce|cv)')
-		let l:statusline.="%8*"
-	elseif (mode() =~# '\v(v|V|^V)')
-		let l:statusline.="%2*"
-	else
-		let l:statusline.="%3*"
-	endif
-	" Mode
-	let l:statusline.="\ %{ModeCurrent()}\ "
-	" Separator
-	let l:statusline.="%1*\ "
-	" Current line number, total line numbers
-	let l:statusline.="%6*\ %l:%L\ "
-	" Separator
-	let l:statusline.="%1*\ "
-	" Filename
-	let l:statusline.="%7*\ %t\ "
-	" Separator
-	let l:statusline.="%1*\ "
-	" Show if file is readonly
-	if ReadOnly() != ""
-		let l:statusline.="%4*\ %{ReadOnly()}\ "
-		" Separator
-		let l:statusline.="%1*\ "
-	endif
-	" Show if file has been modified
-	if Modified() != ""
-		let l:statusline.="%8*\ %{Modified()}\ "
-		" Separator
-		let l:statusline.="%1*\ "
-	endif
-	" Spacer
-	let l:statusline.="%1*%="
-	" Separator
-	let l:statusline.="%1*\ "
-	" Filename
-	let l:statusline.="%1*\ "
-	" Separator
-	let l:statusline.="%1*\ "
-	" Show syntax identifier, if any
-	if SyntaxItem() != ""
-		let l:statusline.="%4*\ %{SyntaxItem()}\ "
-		" Separator
-		let l:statusline.="%1*\ "
-	endif
-	" File encoding
-	let l:statusline.="%7*\ %{(&fenc!=''?&fenc:&enc)}\ "
-	" Separator
-	let l:statusline.="%1*\ "
-	" Filename
-	let l:statusline.="%6*\ %{g:battery_level}\ "
-	" Separator
-	let l:statusline.="%1*\ "
-	" File format
-	let l:statusline.="%5*\ %{&ff}\ "
-	" Done
-	return l:statusline
-endfunction
-
-" Format inactive statusline
-function! InactiveStatusLine()
-	" Reset statusline
-	let l:statusline=""
-	" Filename
-	let l:statusline.="%8*\ %t\ "
-	" Spacer
-	let l:statusline.="%1*%="
-	" File encoding
-	let l:statusline.="%8*\ %{(&fenc!=''?&fenc:&enc)}\ "
-	" Separator
-	let l:statusline.="%1*\ "
-	" File format
-	let l:statusline.="%8*\ %{&ff}\ "
-	" Done
-	return l:statusline
-endfunction
-
-" Set active statusline
-function! SetActiveStatusLine()
-	if &ft ==? 'nerdtree'
-		return
-	endif
-
-	set statusline=
-	set statusline+=%!ActiveStatusLine()
-endfunction
-
-" Set inactive statusline
-function! SetInactiveStatusLine()
-	if &ft ==? 'nerdtree'
-		return
-	endif
-
-	set statusline=
-	set statusline+=%!InactiveStatusLine()
-endfunction
-
-" Autocmd statusline
-augroup statusline
-	autocmd!
-	autocmd WinEnter,BufEnter * call SetActiveStatusLine()
-	autocmd WinLeave,BufLeave * call SetInactiveStatusLine()
-augroup end
-
-hi User1 ctermbg=NONE ctermfg=NONE   guibg=NONE guifg=NONE
-if $curColor ==? 'nord'
-	hi User2 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#2e3440
-	hi User3 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#2e3440
-	hi User4 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#2e3440
-	hi User5 ctermbg=cyan  ctermfg=black guibg=#81a1c1 guifg=#2e3440
-	hi User6 ctermbg=red  ctermfg=white guibg=#bf616a guifg=#d8dee9
-	hi User7 ctermbg=178  ctermfg=white guibg=#d08770 guifg=#d8dee9
-	hi User8 ctermbg=blue  ctermfg=green guibg=#88c0d0 guifg=#2e3440
-elseif $curColor ==? 'OceanicNext'
-	hi User2 ctermbg=white  ctermfg=black guibg=#fac863 guifg=#2e3440
-	hi User3 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#1b2b34
-	hi User4 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#1b2b34
-	hi User5 ctermbg=cyan  ctermfg=black guibg=#6699cc guifg=#d8dee9
-	hi User6 ctermbg=red  ctermfg=white guibg=#ec5f67 guifg=#d8dee9
-	hi User7 ctermbg=178  ctermfg=white guibg=#99c794 guifg=#1b2b34
-	hi User8 ctermbg=blue  ctermfg=green guibg=#5fb3b3 guifg=#1b2b34
-else
-	hi User2 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#2e3440
-	hi User3 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#2e3440
-	hi User4 ctermbg=white  ctermfg=black guibg=#d8dee9 guifg=#2e3440
-	hi User5 ctermbg=cyan  ctermfg=black guibg=#81a1c1 guifg=#2e3440
-	hi User6 ctermbg=red  ctermfg=white guibg=#bf616a guifg=#d8dee9
-	hi User7 ctermbg=178  ctermfg=white guibg=#d08770 guifg=#d8dee9
-	hi User8 ctermbg=blue  ctermfg=green guibg=#88c0d0 guifg=#2e3440
-endif
-
-call SetBatteryLevel(0)
+let g:airline_powerline_fonts = 1
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -536,17 +333,59 @@ call SetBatteryLevel(0)
 " Customize my tabline
 " ------------------------------------------------------------------
 
-set showtabline=2  " Show tabline
-set guioptions-=e  " Don't use GUI tabline
+set showtabline=2
 
-let g:battery#update_tabline = 1    " For tabline.
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_splits = 0
 
-let g:lightline.tabline = {
-  \   'left': [ ['tabs'] ],
-  \   'right': [ ['close', 'battery'] ]
-  \ }
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-set tabline+=%{battery#component()}
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+
+" let g:airline#extensions#tabline#right_sep = ' '
+" let g:airline#extensions#tabline#right_alt_sep = '|'
+
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+" ------------------------------------------------------------------
+" Set up floating terminal
+" ------------------------------------------------------------------
+
+function! OpenFloatTerm()
+  let height = float2nr((&lines - 2) / 1.5)
+  let row = float2nr((&lines - height) / 2)
+  let width = float2nr(&columns / 1.5)
+  let col = float2nr((&columns - width) / 2)
+  " Border Window
+  let border_opts = {
+    \ 'relative': 'editor',
+    \ 'row': row - 1,
+    \ 'col': col - 2,
+    \ 'width': width + 4,
+    \ 'height': height + 2,
+    \ 'style': 'minimal'
+    \ }
+  let border_buf = nvim_create_buf(v:false, v:true)
+  let s:border_win = nvim_open_win(border_buf, v:true, border_opts)
+  " Main Window
+  let opts = {
+    \ 'relative': 'editor',
+    \ 'row': row,
+    \ 'col': col,
+    \ 'width': width,
+    \ 'height': height,
+    \ 'style': 'minimal'
+    \ }
+
+  let buf = nvim_create_buf(v:false, v:true)
+  let win = nvim_open_win(buf, v:true, opts)
+  terminal
+  startinsert ""
+
+  " Hook up TermClose event to close both terminal and border windows
+  autocmd TermClose * ++once :q | call nvim_win_close(s:border_win, v:true)
+endfunction
+
+" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

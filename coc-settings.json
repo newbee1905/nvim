@@ -3,7 +3,7 @@
 	"diagnostic.warningSign": "",
 	"diagnostic.infoSign": "",
 	"eslint.enable": false,
-	"eslint.autoFixOnSave": true,
+	"eslint.autoFixOnSave": false,
 	"eslint.options": {
 		"configFile": ".eslintrc.json"
 	},
@@ -15,12 +15,12 @@
 	],
 	"prettier.singleQuote": true,
 	"prettier.useTabs": true,
-	"prettier.eslintIntegration": true,
+	"prettier.eslintIntegration": false,
 	"typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
 	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
 	"typescript.preferences.quoteStyle": "double",
 	"typescript.referencesCodeLens.enable": false,
-	"tslint.autoFixOnSave": true,
+	"tslint.autoFixOnSave": false,
 	"npm.binPath": "/home/newbee/.nvm/versions/node/v13.10.1/bin/npm",
 	"tsserver.npm": "/home/newbee/.nvm/versions/node/v13.10.1/bin/npm",
 	"tsserver.enableJavascript": true,
