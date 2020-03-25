@@ -10,47 +10,40 @@ if &compatible
   " Set compativility to Vim only
   set nocompatible
 endif
-" Add the dein installation directory into runtimepath
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
-
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+call plug#begin()
 
   " ###### Add git fugitive ######
-  call dein#add('tpope/vim-fugitive')
+  Plug 'tpope/vim-fugitive'
 
   " ######## Add Colorscheme ########
-  call dein#add('mhartington/oceanic-next')
-  call dein#add('morhetz/gruvbox')
-  call dein#add('deviantfero/wpgtk.vim')
-  call dein#add('dylanaraps/wal.vim')
+  Plug 'mhartington/oceanic-next'
+  Plug 'morhetz/gruvbox'
+  Plug 'deviantfero/wpgtk.vim'
+  Plug 'dylanaraps/wal.vim'
   
   " ####### Add auto compltetion coc nvim #######
-  call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   " ###### Add unicode && emoji ######
-  call dein#add('chrisbra/unicode.vim')
+  Plug 'chrisbra/unicode.vim'
 
   " ###### Add commentary #######
-  call dein#add('tpope/vim-commentary')
+  Plug 'tpope/vim-commentary'
 
   " ###### Programming Syntax ######
+  Plug 'sheerun/vim-polyglot'
     "" Color highlighting
-    call dein#add('ap/vim-css-color')
+    Plug 'ap/vim-css-color'
     "" Javascript
-    call dein#add('mxw/vim-jsx')
-    call dein#add('pangloss/vim-javascript')
+    Plug 'pangloss/vim-javascript'
+    Plug 'maxmellon/vim-jsx-pretty'
 
   " ###### Vim Airlines ######
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('vim-airline/vim-airline-themes')
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
   
-
-  call dein#end()
-  call dein#save_state()
-endif
+call plug#end()
 
 " ------------------------------------------------------------------
 " My normal vim set up
@@ -64,13 +57,13 @@ filetype plugin indent on
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Or if you have Neovim >= 0.1.5
-" if (has("termguicolors"))
-"  set termguicolors
-" endif
+if (has("termguicolors"))
+ set termguicolors
+endif
 
 " force 256 colors on the terminal
 set t_Co=256
-let $curColor = "wal"
+let $curColor = "gruvbox"
 syntax on
 " Gruvbox-material theme set up
 let g:gruvbox_material_background = 'hard'
@@ -168,7 +161,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " restart vim after update
-nnoremap <C-r> :so %<CR>
+nnoremap <C-r> :so ~/.config/nvim/init.vim<CR>
 
 " ********************
 " Basic set up for coc
@@ -186,8 +179,6 @@ set signcolumn=yes
 " ********************
 
 nnoremap <C-t> :call OpenFloatTerm()<CR>
-
-nnoremap <leader>t :tabnew
 
 " ********************
 " Add commentary to vim
@@ -387,5 +378,26 @@ function! OpenFloatTerm()
   " Hook up TermClose event to close both terminal and border windows
   autocmd TermClose * ++once :q | call nvim_win_close(s:border_win, v:true)
 endfunction
+
+" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+" ------------------------------------------------------------------
+" Set up highlighting
+" ------------------------------------------------------------------
+
+  "" #############
+  "" Javascript
+  "" #############
+    au BufNewFile,BufRead *.jsx setlocal ft=html ft=javascript
+    " The following variables control certain syntax highlighting plugins.
+    " You can add them to your .vimrc to enable their features.
+    let g:javascript_plugin_jsdoc = 1
+    " highlight close tag
+    let g:vim_jsx_pretty_highlight_close_tag = 1
+    " turn on colorful config
+    let g:vim_jsx_pretty_colorful_config = 1
+
+    set conceallevel=1
+  "" ~~~~~~~~~~~~~
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
