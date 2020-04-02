@@ -19,6 +19,7 @@ call plug#begin()
   " ######## Add Colorscheme ########
   Plug 'mhartington/oceanic-next'
   Plug 'morhetz/gruvbox'
+  Plug 'chriskempson/base16-vim'
   Plug 'deviantfero/wpgtk.vim'
   Plug 'dylanaraps/wal.vim'
   
@@ -38,11 +39,18 @@ call plug#begin()
     "" Javascript
     Plug 'pangloss/vim-javascript'
     Plug 'maxmellon/vim-jsx-pretty'
+    "" Cpp
 
   " ###### Vim Airlines ######
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   
+  " ###### Move line ######
+  Plug 'matze/vim-move'
+
+  " ###### Indent Line #######
+  Plug 'Yggdroot/indentLine'
+
 call plug#end()
 
 " ------------------------------------------------------------------
@@ -56,14 +64,22 @@ filetype plugin indent on
 " For Neovim 0.1.3 and 0.1.4
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-" Or if you have Neovim >= 0.1.5
-if (has("termguicolors"))
- set termguicolors
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
 endif
 
 " force 256 colors on the terminal
 set t_Co=256
-let $curColor = "gruvbox"
+let $curColor = "base16-harmonic-dark"
+
+" Or if you have Neovim >= 0.1.5
+if (has("termguicolors"))
+  if $curColor != 'wpgtk' && $curColor != 'wpgtkAlt'
+    set termguicolors
+  endif
+endif
+
 syntax on
 " Gruvbox-material theme set up
 let g:gruvbox_material_background = 'hard'
@@ -79,7 +95,7 @@ let g:oceanic_next_terminal_italic = 1
 let g:nord_italic = 1
 let g:nord_underline = 1
 let g:nord_italic_comments = 1
-colorscheme $curColor
+" colorscheme $curColor
 highlight LineNr ctermbg=NONE ctermfg=white guibg=NONE guifg=white
 highlight SignColumn ctermbg=NONE guibg=NONE
 
@@ -318,15 +334,17 @@ set laststatus=2
 
 let g:airline_powerline_fonts = 1
 
+" let g:airline_theme='wpgtk'
+
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 " ------------------------------------------------------------------
 " Customize my tabline
 " ------------------------------------------------------------------
 
-set showtabline=2
+" set showtabline=2
 
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_splits = 0
 
 let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -400,4 +418,86 @@ endfunction
     set conceallevel=1
   "" ~~~~~~~~~~~~~
 
+  "" #############
+  "" Indent Line
+  "" #############
+    " Term
+    let g:indentLine_color_term = 239
+
+  " Gui
+    let g:indentLine_color_gui = '#4e4e4e'
+
+    let g:indentLine_char = ''
+    " let g:indentLine_leadingSpaceEnabled = 1
+    let g:indentLine_leadingSpaceChar = '•'
+  "" ~~~~~~~~~~~~~
+
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+" help function for formatters
+function! CopyDiffToBuffer(input, output, bufname)
+  " prevent out of range in cickle
+  let min_len=min([len(a:input), len(a:output)])
+
+  " copy all lines, that was changed
+  for i in range(0, min_len - 1)
+    let output_line=a:output[i]
+    let input_line=a:input[i]
+    if input_line != output_line
+      call setline(i + 1, output_line) " lines calculate from 1, items - from 0
+    end
+  endfor
+
+  " in this case we have to handle all lines, that was in range
+  if len(a:input) != len(a:output)
+    if min_len == len(a:output) " remove all extra lines from input
+      call deletebufline(a:bufname, min_len + 1, "$")
+    else " append all extra lines from output
+      call append("$", a:output[min_len:])
+    end
+  end
+endfunction
+
+function! LuaFormat()
+  let input=getline(1, "$")
+
+  " in case of some error formatter print to stderr error message and exit
+  " with 0 code, so we need redirect stderr to file, for read message in case
+  " of some error. So let create a temporary file
+  let errorfile=tempname()
+
+  let flags=" -si "
+
+  " we can use config file for formatting which we have to set manually
+  let config=findfile(".lua-format", ".;")
+  if len(config) " append config file to flags
+    let flags=flags . " -c " . config
+  end
+
+  let output_str=system("lua-format " . flags . " 2>" . errorfile, input)
+
+  if len(output_str) " all right
+    let output=split(output_str, "\n")
+    call CopyDiffToBuffer(input, output, bufname("%"))
+
+    " also clear lbuffer
+    lexpr ""
+    lwindow
+  else " we got error
+    let errors=readfile(errorfile)
+
+    " insert filename of current buffer in front of list. Need for errorformat
+    let sourcefile=expand("%")
+    call insert(errors, sourcefile)
+
+    set efm=%+P%f,line\ %l:%c\ %m,%-Q
+    lexpr errors
+    lwindow 5
+  end
+
+  call delete(errorfile)
+endfunction
+autocmd FileType lua nnoremap <buffer> <c-k> :call LuaFormat()<cr>
+autocmd BufWrite *.lua call LuaFormat()

@@ -13,8 +13,8 @@
 		"json",
 		"javascript"
 	],
-	"prettier.singleQuote": true,
-	"prettier.useTabs": true,
+	"prettier.singleQuote": false,
+	"prettier.useTabs": false,
 	"prettier.eslintIntegration": false,
 	"typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
 	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,

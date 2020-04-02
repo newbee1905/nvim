@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =8
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/home/newbee/Downloads/Iosevka/build'
 let g:netrw_dirhist_8='/home/newbee/Documents/myProject/englishapp/src/components'
 let g:netrw_dirhist_7='/home/newbee/Documents/myProject/englishapp/src/css'
 let g:netrw_dirhist_6='/home/newbee/Documents/myProject/englishapp/src'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_3='/home/newbee/Documents/myProject/englishapp'
 let g:netrw_dirhist_2='/home/newbee/.config/i3'
 let g:netrw_dirhist_1='/home/newbee/Documents/myProject/englishapp/src/components'
 let g:netrw_dirhist_0='/home/newbee/Documents/myProject/hps'
-let g:netrw_dirhist_9='/home/newbee/Documents/myProject/englishapp/src/components'
