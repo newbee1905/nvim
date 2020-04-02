@@ -98,6 +98,7 @@ let g:nord_italic_comments = 1
 " colorscheme $curColor
 highlight LineNr ctermbg=NONE ctermfg=white guibg=NONE guifg=white
 highlight SignColumn ctermbg=NONE guibg=NONE
+highlight Comment cterm=italic gui=italic
 
 set encoding=UTF-8
 
