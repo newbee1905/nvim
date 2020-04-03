@@ -40,6 +40,8 @@ call plug#begin()
     Plug 'pangloss/vim-javascript'
     Plug 'maxmellon/vim-jsx-pretty'
     "" Cpp
+    Plug 'bfrg/vim-cpp-modern'
+    Plug 'octol/vim-cpp-enhanced-highlight'
 
   " ###### Vim Airlines ######
   Plug 'vim-airline/vim-airline'
@@ -215,7 +217,7 @@ xmap <leader>/ gc
 
 " let g:coc_node_path = '/usr/bin/node'
 " coc extensions
-let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver@1.4.9', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier', 'coc-lua']
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver@1.4.9', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier', 'coc-lua', 'coc-cmake']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -420,6 +422,24 @@ endfunction
   "" ~~~~~~~~~~~~~
 
   "" #############
+  "" Cpp
+  "" #############
+  " Enable highlighting of named requirements (C++20 library concepts)
+  let g:cpp_named_requirements_highlight = 1
+  
+  let c_no_curly_error = 1
+
+  " Highlighting of class scope is disabled by default. To enable set
+  let g:cpp_class_scope_highlight = 1
+
+  " Highlighting of member variables is disabled by default. To enable set
+  let g:cpp_member_variable_highlight = 1
+
+  " Highlighting of class names in declarations is disabled by default. To enable set
+  let g:cpp_class_decl_highlight = 1
+  "" ~~~~~~~~~~~~~
+
+  "" #############
   "" Indent Line
   "" #############
     " Term
@@ -434,71 +454,3 @@ endfunction
   "" ~~~~~~~~~~~~~
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-
-" help function for formatters
-function! CopyDiffToBuffer(input, output, bufname)
-  " prevent out of range in cickle
-  let min_len=min([len(a:input), len(a:output)])
-
-  " copy all lines, that was changed
-  for i in range(0, min_len - 1)
-    let output_line=a:output[i]
-    let input_line=a:input[i]
-    if input_line != output_line
-      call setline(i + 1, output_line) " lines calculate from 1, items - from 0
-    end
-  endfor
-
-  " in this case we have to handle all lines, that was in range
-  if len(a:input) != len(a:output)
-    if min_len == len(a:output) " remove all extra lines from input
-      call deletebufline(a:bufname, min_len + 1, "$")
-    else " append all extra lines from output
-      call append("$", a:output[min_len:])
-    end
-  end
-endfunction
-
-function! LuaFormat()
-  let input=getline(1, "$")
-
-  " in case of some error formatter print to stderr error message and exit
-  " with 0 code, so we need redirect stderr to file, for read message in case
-  " of some error. So let create a temporary file
-  let errorfile=tempname()
-
-  let flags=" -si "
-
-  " we can use config file for formatting which we have to set manually
-  let config=findfile(".lua-format", ".;")
-  if len(config) " append config file to flags
-    let flags=flags . " -c " . config
-  end
-
-  let output_str=system("lua-format " . flags . " 2>" . errorfile, input)
-
-  if len(output_str) " all right
-    let output=split(output_str, "\n")
-    call CopyDiffToBuffer(input, output, bufname("%"))
-
-    " also clear lbuffer
-    lexpr ""
-    lwindow
-  else " we got error
-    let errors=readfile(errorfile)
-
-    " insert filename of current buffer in front of list. Need for errorformat
-    let sourcefile=expand("%")
-    call insert(errors, sourcefile)
-
-    set efm=%+P%f,line\ %l:%c\ %m,%-Q
-    lexpr errors
-    lwindow 5
-  end
-
-  call delete(errorfile)
-endfunction
-autocmd FileType lua nnoremap <buffer> <c-k> :call LuaFormat()<cr>
-autocmd BufWrite *.lua call LuaFormat()
