@@ -7,7 +7,7 @@
 "   ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
 
 if &compatible
-  " Set compativility to Vim only
+  " Set compatibility to Vim only
   set nocompatible
 endif
 
@@ -16,14 +16,15 @@ call plug#begin()
   " ###### Add git fugitive ######
   Plug 'tpope/vim-fugitive'
 
-  " ######## Add Colorscheme ########
+  " ######## Add colorscheme ########
   Plug 'mhartington/oceanic-next'
   Plug 'morhetz/gruvbox'
   Plug 'chriskempson/base16-vim'
   Plug 'deviantfero/wpgtk.vim'
   Plug 'dylanaraps/wal.vim'
+  Plug 'rodnaph/vim-color-schemes'
   
-  " ####### Add auto compltetion coc nvim #######
+  " ####### Add auto completion coc nvim #######
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   " ###### Add unicode && emoji ######
@@ -42,10 +43,14 @@ call plug#begin()
     "" Cpp
     Plug 'bfrg/vim-cpp-modern'
     Plug 'octol/vim-cpp-enhanced-highlight'
+    "" i3
+    Plug 'PotatoesMaster/i3-vim-syntax'
 
   " ###### Vim Airlines ######
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
+  " Plug 'vim-airline/vim-airline'
+  " Plug 'vim-airline/vim-airline-themes'
+  " Plug 'itchyny/lightline.vim'
+  " Plug 'daviesjamie/vim-base16-lightline'
   
   " ###### Move line ######
   Plug 'matze/vim-move'
@@ -73,7 +78,7 @@ endif
 
 " force 256 colors on the terminal
 set t_Co=256
-let $curColor = "base16-harmonic-dark"
+let $curColor = "base16-apathy"
 
 " Or if you have Neovim >= 0.1.5
 if (has("termguicolors"))
@@ -106,12 +111,20 @@ set encoding=UTF-8
 
 set number
 set relativenumber
+" Turn off number for text file
+autocmd FileType text setl nonumber | setl norelativenumber
+
 
 " Turn off modelines
 set modelines=0
 
 " Automatically wrap text that extends beyond the screen length.
 set wrap
+
+" Add spell checker to vim
+set spell
+" use tab completion instead of using <C-N> / <C-P>
+nmap <tab> viw<esc>a<c-x>s
 
 " Uncomment below to set the max textwidth. Use a value corresponding to the width of your screen.
 " set textwidth=79
@@ -217,7 +230,7 @@ xmap <leader>/ gc
 
 " let g:coc_node_path = '/usr/bin/node'
 " coc extensions
-let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver@1.4.9', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier', 'coc-lua', 'coc-cmake']
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver@1.4.9', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier', 'coc-lua', 'coc-cmake', 'coc-spell-checker', 'coc-actions']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -250,6 +263,13 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" Remap for do codeAction of selected region
+function! s:cocActionsOpenFromSelected(type) abort
+  execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -335,9 +355,29 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 set laststatus=2
 
-let g:airline_powerline_fonts = 1
+" function! GitBranch()
+"   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+" endfunction
 
-" let g:airline_theme='wpgtk'
+" function! StatuslineGit()
+"   let l:branchname = GitBranch()
+"   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+" endfunction
+
+" set statusline=
+" set statusline+=%#PmenuSel#
+" set statusline+=%{StatuslineGit()}
+" set statusline+=%#LineNr#
+" set statusline+=\ %f
+" " set statusline+=%m\
+" set statusline+=%=
+" " set statusline+=%#CursorColumn#
+" set statusline+=\ %y
+" set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+" set statusline+=\[%{&fileformat}\]
+" set statusline+=\ %p%%
+" set statusline+=\ %l:%c
+" " set statusline+=\
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -346,18 +386,6 @@ let g:airline_powerline_fonts = 1
 " ------------------------------------------------------------------
 
 " set showtabline=2
-
-" let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_splits = 0
-
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-
-" let g:airline#extensions#tabline#right_sep = ' '
-" let g:airline#extensions#tabline#right_alt_sep = '|'
-
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
