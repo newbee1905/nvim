@@ -45,6 +45,8 @@ call plug#begin()
     Plug 'octol/vim-cpp-enhanced-highlight'
     "" i3
     Plug 'PotatoesMaster/i3-vim-syntax'
+    "" Rust
+    Plug 'rust-lang/rust.vim'
 
   " ###### Vim Airlines ######
   " Plug 'vim-airline/vim-airline'
@@ -230,7 +232,7 @@ xmap <leader>/ gc
 
 " let g:coc_node_path = '/usr/bin/node'
 " coc extensions
-let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver@1.4.9', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier', 'coc-lua', 'coc-cmake', 'coc-spell-checker', 'coc-actions']
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver@1.4.9', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier', 'coc-lua', 'coc-cmake', 'coc-spell-checker', 'coc-actions', 'coc-rls']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -465,6 +467,12 @@ endfunction
 
   " Highlighting of class names in declarations is disabled by default. To enable set
   let g:cpp_class_decl_highlight = 1
+  "" ~~~~~~~~~~~~~
+
+  "" #############
+  "" Rust
+  "" #############
+  let g:rust_recommended_style = 0
   "" ~~~~~~~~~~~~~
 
   "" #############
