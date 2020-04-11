@@ -31,22 +31,25 @@ call plug#begin()
   Plug 'chrisbra/unicode.vim'
 
   " ###### Add commentary #######
-  Plug 'tpope/vim-commentary'
+  Plug 'preservim/nerdcommenter'
 
   " ###### Programming Syntax ######
+  Plug 'justinmk/vim-syntax-extra'
   Plug 'sheerun/vim-polyglot'
     "" Color highlighting
-    Plug 'ap/vim-css-color'
+    Plug 'norcalli/nvim-colorizer.lua'
     "" Javascript
     Plug 'pangloss/vim-javascript'
     Plug 'maxmellon/vim-jsx-pretty'
     "" Cpp
     Plug 'bfrg/vim-cpp-modern'
     Plug 'octol/vim-cpp-enhanced-highlight'
-    "" i3
-    Plug 'PotatoesMaster/i3-vim-syntax'
     "" Rust
     Plug 'rust-lang/rust.vim'
+    "" i3
+    Plug 'PotatoesMaster/i3-vim-syntax'
+    "" SXHKD
+    Plug 'kovetskiy/sxhkd-vim'
 
   " ###### Vim Airlines ######
   " Plug 'vim-airline/vim-airline'
@@ -59,6 +62,9 @@ call plug#begin()
 
   " ###### Indent Line #######
   Plug 'Yggdroot/indentLine'
+  
+  " ###### Vim Undo Tree #######
+  Plug 'simnalamburt/vim-mundo'
 
 call plug#end()
 
@@ -124,9 +130,9 @@ set modelines=0
 set wrap
 
 " Add spell checker to vim
-set spell
+" set spell
 " use tab completion instead of using <C-N> / <C-P>
-nmap <tab> viw<esc>a<c-x>s
+" nmap <tab> viw<esc>a<c-x>s
 
 " Uncomment below to set the max textwidth. Use a value corresponding to the width of your screen.
 " set textwidth=79
@@ -194,6 +200,9 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Use Ctrl to move line instead of using Alt
+let g:move_key_modifier = 'C'
+
 " restart vim after update
 nnoremap <C-r> :so ~/.config/nvim/init.vim<CR>
 
@@ -218,8 +227,32 @@ nnoremap <C-t> :call OpenFloatTerm()<CR>
 " Add commentary to vim
 " ********************
 
-nmap <leader>/ gcc
-xmap <leader>/ gc
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1
+
+nmap <leader>/ :call NERDComment(0,"toggle")<CR>
+xmap <leader>/ :call NERDComment(0,"toggle")<CR>
 
 " ********************
 
@@ -433,7 +466,7 @@ endfunction
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 " ------------------------------------------------------------------
-" Set up highlighting
+" Set up syntax highlighting
 " ------------------------------------------------------------------
 
   "" #############
@@ -476,6 +509,12 @@ endfunction
   "" ~~~~~~~~~~~~~
 
   "" #############
+  "" Colorizer
+  "" #############
+  lua require 'colorizer'.setup({'*'}, { mode = "background"; css = true; css_fn = true })
+  "" ~~~~~~~~~~~~~
+
+  "" #############
   "" Indent Line
   "" #############
     " Term
@@ -488,5 +527,16 @@ endfunction
     " let g:indentLine_leadingSpaceEnabled = 1
     let g:indentLine_leadingSpaceChar = '•'
   "" ~~~~~~~~~~~~~
+
+" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+" ------------------------------------------------------------------
+" Set up mundo, vim undo tree
+" ------------------------------------------------------------------
+
+nnoremap <C-u> :MundoToggle<CR>
+" Enable persistent undo so that undo history persists across vim sessions
+set undofile
+set undodir=~/.vim/undo
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
