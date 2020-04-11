@@ -52,11 +52,11 @@ call plug#begin()
     Plug 'kovetskiy/sxhkd-vim'
 
   " ###### Vim Airlines ######
-  " Plug 'vim-airline/vim-airline'
-  " Plug 'vim-airline/vim-airline-themes'
-  " Plug 'itchyny/lightline.vim'
-  " Plug 'daviesjamie/vim-base16-lightline'
-  
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'itchyny/lightline.vim'
+  Plug 'daviesjamie/vim-base16-lightline'
+
   " ###### Move line ######
   Plug 'matze/vim-move'
 
@@ -64,7 +64,7 @@ call plug#begin()
   Plug 'Yggdroot/indentLine'
   
   " ###### Vim Undo Tree #######
-  " Plug 'simnalamburt/vim-mundo'
+  Plug 'simnalamburt/vim-mundo'
 
   " ###### Vim Navigator Tree #######
   Plug 'jeetsukumaran/vim-filebeagle'
