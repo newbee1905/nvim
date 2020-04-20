@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/home/newbee1905/.zinit/plugins/arcticicestudio---nord-dircolors'
+let g:netrw_dirhist_4='/home/newbee1905/.zinit/plugins'
+let g:netrw_dirhist_3='/home/newbee1905/.zinit'
+let g:netrw_dirhist_2='/home/newbee1905/.zinit/plugins'
+let g:netrw_dirhist_1='/home/newbee1905/.config/zsh.backup'
+let g:netrw_dirhist_0='/home/newbee1905/.config'
+let g:netrw_dirhist_9='/home/newbee1905/.config/nvim'
+let g:netrw_dirhist_8='/home/newbee1905/.config/dwm/.git/refs/heads'
+let g:netrw_dirhist_7='/home/newbee1905/.config/dwm/.git/refs'
+let g:netrw_dirhist_6='/home/newbee1905/.config/dwm/.git/refs/remotes'

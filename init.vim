@@ -20,9 +20,12 @@ call plug#begin()
   Plug 'mhartington/oceanic-next'
   Plug 'morhetz/gruvbox'
   Plug 'chriskempson/base16-vim'
-  Plug 'deviantfero/wpgtk.vim'
-  Plug 'dylanaraps/wal.vim'
-  Plug 'rodnaph/vim-color-schemes'
+  " Plug 'deviantfero/wpgtk.vim'
+  " Plug 'dylanaraps/wal.vim'
+  " Plug 'rodnaph/vim-color-schemes'
+  Plug 'rakr/vim-two-firewatch'
+  Plug 'cocopon/iceberg.vim'
+  Plug 'lifepillar/vim-solarized8'
   
   " ####### Add auto completion coc nvim #######
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -55,7 +58,8 @@ call plug#begin()
   " Plug 'vim-airline/vim-airline'
   " Plug 'vim-airline/vim-airline-themes'
   " Plug 'itchyny/lightline.vim'
-  " Plug 'daviesjamie/vim-base16-lightline'
+  " Plug 'edkolev/tmuxline.vim'
+  " Plug 'ajmwagar/lightline-deus'
 
   " ###### Move line ######
   Plug 'matze/vim-move'
@@ -82,14 +86,14 @@ filetype plugin indent on
 " For Neovim 0.1.3 and 0.1.4
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
+" if filereadable(expand("~/.vimrc_background"))
+"   let base16colorspace=256
+"   source ~/.vimrc_background
+" endif
 
 " force 256 colors on the terminal
 set t_Co=256
-let $curColor = "base16-apathy"
+let $curColor = 'iceberg'
 
 " Or if you have Neovim >= 0.1.5
 if (has("termguicolors"))
@@ -109,13 +113,14 @@ set background=dark
 " OceanicNext theme setup
 let g:oceanic_next_terminal_bold = 1
 let g:oceanic_next_terminal_italic = 1
-" Nord theme set up
-let g:nord_italic = 1
-let g:nord_underline = 1
-let g:nord_italic_comments = 1
-" colorscheme $curColor
-highlight LineNr ctermbg=NONE ctermfg=white guibg=NONE guifg=white
-highlight SignColumn ctermbg=NONE guibg=NONE
+" Two Firewatch theme setup
+let g:two_firewatch_italics = 1
+" Solarized theme set up
+let g:solarized_termcolors=256
+
+colorscheme $curColor
+" highlight LineNr ctermbg=NONE ctermfg=white guibg=NONE guifg=white
+" highlight SignColumn ctermbg=NONE guibg=NONE
 highlight Comment cterm=italic gui=italic
 
 set encoding=UTF-8
@@ -261,7 +266,7 @@ xmap <leader>/ :call NERDComment(0,"toggle")<CR>
 
 " let g:coc_node_path = '/usr/bin/node'
 " coc extensions
-let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier', 'coc-lua', 'coc-cmake', 'coc-spell-checker', 'coc-actions', 'coc-rls']
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier', 'coc-lua', 'coc-cmake', 'coc-clangd', 'coc-spell-checker', 'coc-actions', 'coc-rls']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -386,29 +391,23 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 set laststatus=2
 
-" function! GitBranch()
-"   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-" endfunction
+" let g:airline_powerline_fonts = 1
 
-" function! StatuslineGit()
-"   let l:branchname = GitBranch()
-"   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-" endfunction
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
 
-" set statusline=
-" set statusline+=%#PmenuSel#
-" set statusline+=%{StatuslineGit()}
-" set statusline+=%#LineNr#
-" set statusline+=\ %f
-" " set statusline+=%m\
-" set statusline+=%=
-" " set statusline+=%#CursorColumn#
-" set statusline+=\ %y
-" set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-" set statusline+=\[%{&fileformat}\]
-" set statusline+=\ %p%%
-" set statusline+=\ %l:%c
-" " set statusline+=\
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_left_alt_sep = ''
+"
+" let g:airline_extensions = []
+
+" let g:lightline = {
+"       \ 'colorscheme': 'iceberg',
+"       \ }
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
