@@ -20,12 +20,9 @@ call plug#begin()
   Plug 'mhartington/oceanic-next'
   Plug 'morhetz/gruvbox'
   Plug 'chriskempson/base16-vim'
-  " Plug 'deviantfero/wpgtk.vim'
-  " Plug 'dylanaraps/wal.vim'
   " Plug 'rodnaph/vim-color-schemes'
-  Plug 'rakr/vim-two-firewatch'
   Plug 'cocopon/iceberg.vim'
-  Plug 'lifepillar/vim-solarized8'
+  Plug 'arzg/vim-substrata'
   
   " ####### Add auto completion coc nvim #######
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -72,6 +69,9 @@ call plug#begin()
 
   " ###### Vim Navigator Tree #######
   " Plug 'tpope/vim-vinegar'
+  
+  " ###### Text #######
+  Plug 'junegunn/limelight.vim'
 
 call plug#end()
 
@@ -93,7 +93,7 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " force 256 colors on the terminal
 set t_Co=256
-let $curColor = 'iceberg'
+let $curColor = 'substrata'
 
 " Or if you have Neovim >= 0.1.5
 if (has("termguicolors"))
