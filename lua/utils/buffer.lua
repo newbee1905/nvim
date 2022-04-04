@@ -1,0 +1,3 @@
+local buffer = {}
+
+return buffer
