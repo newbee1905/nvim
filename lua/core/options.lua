@@ -161,10 +161,12 @@ leader_map()
 disable_distribution_plugins()
 disable_recommneded_style()
 
-require 'utils.base16':apply(require 'theme.mountain-base16')
+local theme = 'night-owl'
+
+require 'utils.base16':apply(require('theme.' .. theme .. '-base16'))
 
 defer_fn(function()
-	require 'utils.highlight':highlight(require 'theme.mountain')
+	require 'utils.highlight':highlight(require('theme.'..theme))
 
 	cmd [[set foldmethod=expr]]
 	cmd [[set foldexpr=nvim_treesitter#foldexpr()]]

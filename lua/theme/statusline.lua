@@ -3,7 +3,7 @@ local gl = require("galaxyline")
 local section = gl.section
 gl.short_line_list = {"LuaTree", "packager", "Floaterm", "coc-eplorer"}
 
-local colours = require("theme.mountain")
+local colours = require("theme.night-owl")
 
 local buffer_not_empty = function()
   if fn.empty(fn.expand("%:t")) ~= 1 then return true

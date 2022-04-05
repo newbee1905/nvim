@@ -5,12 +5,12 @@ local highlight = {}
 -- @param group Group
 -- @param color Color
 local bg = function(group, col)
-	 cmd("hi " .. group .. " guibg=" .. col)
+	cmd("hi " .. group .. " guibg=" .. col)
 end -- Define fg color
 -- @param group Group
 -- @param color Color
 local fg = function(group, col)
-	 cmd("hi " .. group .. " guifg=" .. col)
+	cmd("hi " .. group .. " guifg=" .. col)
 end
 
 
