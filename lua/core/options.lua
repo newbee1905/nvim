@@ -94,7 +94,7 @@ local function load_options()
 	vim.o.linebreak       = true
 	vim.o.foldenable      = true
 	vim.o.signcolumn      = "yes"
-	vim.o.conceallevel    = 2
+	vim.o.conceallevel    = 0
 	vim.o.concealcursor   = "niv"
 
 	if global.is_mac then
