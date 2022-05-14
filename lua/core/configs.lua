@@ -21,9 +21,9 @@ function config.telescope()
 			"--column",
 			"--smart-case",
 		},
-		prompt_prefix = "   ",
-		selection_caret = "  ",
-		entry_prefix = "  ",
+		prompt_prefix = " 	",
+		selection_caret = "	",
+		entry_prefix = "	",
 		initial_mode = "insert",
 		selection_strategy = "reset",
 		sorting_strategy = "ascending",
@@ -42,7 +42,7 @@ function config.telescope()
 			preview_cutoff = 120,
 		},
 		file_sorter = require"telescope.sorters".get_fuzzy_file,
-		file_ignore_patterns = { "node_modules" },
+		file_ignore_patterns = { "node_modules", "dist/static" },
 		generic_sorter = require"telescope.sorters".get_generic_fuzzy_sorter,
 		path_display = { "truncate" },
 		winblend = 0,
@@ -67,10 +67,10 @@ function config.telescope()
 		defaults = defaults,
 		extensions = {
 			fzf = {
-				fuzzy = true,						         -- false will only do exact matching
-				override_generic_sorter = true,  -- override the generic sorter
-				override_file_sorter = true,	  -- override the file sorter
-				case_mode = "smart_case",		  -- or "ignore_case" or "respect_case"
+				fuzzy = true,							       -- false will only do exact matching
+				override_generic_sorter = true,	-- override the generic sorter
+				override_file_sorter = true,		-- override the file sorter
+				case_mode = "smart_case",			-- or "ignore_case" or "respect_case"
 																				-- the default case_mode is "smart_case"
 			}
 		}
@@ -83,6 +83,123 @@ end
 function config.comment()
 	local comment = require('Comment')
 	comment.setup()
+end
+
+function config.zen_mode()
+	require'zen-mode'.setup {
+		window = {
+			backdrop = 0.8,
+			width = 120,
+			height = 1,
+			options = {
+				signcolumn = "yes",
+				number = false,
+				relativenumber = false,
+			}
+		},
+		-- callback where you can add custom code when the Zen window opens
+		on_open = function(win)
+		end,
+		-- callback where you can add custom code when the Zen window closes
+		on_close = function()
+		end,
+	}
+end
+
+function config.nvim_gps()
+	local conf = {
+		disable_icons = false,	         -- Setting it to true will disable all icons
+
+		icons = {
+			["class-name"] = ' ',	    -- Classes and class-like objects
+			["function-name"] = ' ',	 -- Functions
+			["method-name"] = ' ',	   -- Methods (functions inside class-like objects)
+			["container-name"] = '⛶ ',	-- Containers (example: lua tables)
+			["tag-name"] = '炙'	       -- Tags (example: html tags)
+		},
+
+		-- Add custom configuration per language or
+		-- Disable the plugin for a language
+		-- Any language not disabled here is enabled by default
+		languages = {
+			-- Some languages have custom icons
+			["json"] = {
+				icons = {
+					["array-name"] = ' ',
+					["object-name"] = ' ',
+					["null-name"] = '[] ',
+					["boolean-name"] = 'ﰰﰴ ',
+					["number-name"] = '# ',
+					["string-name"] = ' '
+				}
+			},
+			["latex"] = {
+				icons = {
+					["title-name"] = "# ",
+					["label-name"] = " ",
+				},
+			},
+			["norg"] = {
+				icons = {
+					["title-name"] = " ",
+				},
+			},
+			["toml"] = {
+				icons = {
+					["table-name"] = ' ',
+					["array-name"] = ' ',
+					["boolean-name"] = 'ﰰﰴ ',
+					["date-name"] = ' ',
+					["date-time-name"] = ' ',
+					["float-name"] = ' ',
+					["inline-table-name"] = ' ',
+					["integer-name"] = '# ',
+					["string-name"] = ' ',
+					["time-name"] = ' '
+				}
+			},
+			["verilog"] = {
+				icons = {
+					["module-name"] = ' '
+				}
+			},
+			["yaml"] = {
+				icons = {
+					["mapping-name"] = ' ',
+					["sequence-name"] = ' ',
+					["null-name"] = '[] ',
+					["boolean-name"] = 'ﰰﰴ ',
+					["integer-name"] = '# ',
+					["float-name"] = ' ',
+					["string-name"] = ' '
+				}
+			},
+			["yang"] = {
+				icons = {
+					["module-name"] = " ",
+					["augment-path"] = " ",
+					["container-name"] = " ",
+					["grouping-name"] = " ",
+					["typedef-name"] = " ",
+					["identity-name"] = " ",
+					["list-name"] = "﬘ ",
+					["leaf-list-name"] = " ",
+					["leaf-name"] = " ",
+					["action-name"] = " ",
+				}
+			},
+		},
+
+		separator = ' > ',
+
+		-- limit for amount of context shown
+		-- 0 means no limit
+		depth = 0,
+
+		-- indicator used when context hits depth limit
+		depth_limit_indicator = ".."
+	}
+	require'nvim-gps'.setup(conf)
 end
 
 function config.nvim_colorizer()
@@ -158,11 +275,11 @@ function config.dashboard()
 	local buttons = {
 		type = "group",
 		val = {
-			button("SPC f f", "  Find File  ", ":Telescope find_files<CR>"),
-			button("SPC f o", "  Recent File  ", ":Telescope oldfiles<CR>"),
-			button("SPC f w", "  Find Word  ", ":Telescope live_grep<CR>"),
-			button("SPC b m", "  Bookmarks  ", ":Telescope marks<CR>"),
-			button("SPC e s", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
+			button("SPC f f", "	Find File  ", ":Telescope find_files<CR>"),
+			button("SPC f o", "	Recent File  ", ":Telescope oldfiles<CR>"),
+			button("SPC f w", "	Find Word  ", ":Telescope live_grep<CR>"),
+			button("SPC b m", "	Bookmarks  ", ":Telescope marks<CR>"),
+			button("SPC e s", "	Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
 		},
 		opts = {
 			spacing = 1,
@@ -190,9 +307,9 @@ function config.galaxyline()
 end
 
 function config.indent_blankline()
-  vim.g.indent_blankline_char = "▏"
-  vim.g.indent_blankline_show_first_indent_level = true
-  vim.g.indent_blankline_filetype_exclude = {
+	vim.g.indent_blankline_char = "▏"
+	vim.g.indent_blankline_show_first_indent_level = true
+	vim.g.indent_blankline_filetype_exclude = {
 	 "dashboard",
 	 "dotooagenda",
 	 "log",
@@ -212,11 +329,11 @@ function config.indent_blankline()
 	 "undotree",
 	 "flutterToolsOutline",
 	 "" -- for all buffers without a file type
-  }
-  vim.g.indent_blankline_buftype_exclude = {"terminal", "nofile"}
-  vim.g.indent_blankline_show_trailing_blankline_indent = false
-  vim.g.indent_blankline_show_current_context = true
-  vim.g.indent_blankline_context_patterns = {
+	}
+	vim.g.indent_blankline_buftype_exclude = {"terminal", "nofile"}
+	vim.g.indent_blankline_show_trailing_blankline_indent = false
+	vim.g.indent_blankline_show_current_context = true
+	vim.g.indent_blankline_context_patterns = {
 	 "class",
 	 "function",
 	 "method",
@@ -228,9 +345,9 @@ function config.indent_blankline()
 	 "if_statement",
 	 "while",
 	 "for"
-  }
-  -- because lazy load indent-blankline so need readd this autocmd
-  vim.cmd [[autocmd CursorMoved * IndentBlanklineRefresh]]
+	}
+	-- because lazy load indent-blankline so need readd this autocmd
+	vim.cmd [[autocmd CursorMoved * IndentBlanklineRefresh]]
 end
 
 function config.gitsigns()
@@ -242,10 +359,10 @@ function config.gitsigns()
 			topdelete	 = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
 			changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
 		},
-		signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
+		signcolumn = true,	-- Toggle with `:Gitsigns toggle_signs`
 		numhl		= false, -- Toggle with `:Gitsigns toggle_numhl`
-		linehl	  = false, -- Toggle with `:Gitsigns toggle_linehl`
-		word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
+		linehl		= false, -- Toggle with `:Gitsigns toggle_linehl`
+		word_diff	= false, -- Toggle with `:Gitsigns toggle_word_diff`
 		keymaps = {
 			-- Default keymap options
 			noremap = true,
@@ -361,7 +478,7 @@ function config.nvim_lsp_installer()
 		utils:map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 		utils:map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 		utils:map('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>')
-		utils:map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+		utils:map('n', '<leader>f', '<cmd>lua vim.lsp.buf.format { async = true }<CR>')
 	end
 
 	-- Typical server that don't need extra configurations
@@ -370,7 +487,7 @@ function config.nvim_lsp_installer()
 	 'yamlls',
 	 'vuels',
 	 'pyright',
-	 -- 'tsserver',
+		-- 'tsserver',
 		-- 'denols',
 	 'svelte',
 	 'cmake',
@@ -381,8 +498,9 @@ function config.nvim_lsp_installer()
 	 'gopls',
 	 'rust_analyzer',
 	 'bashls',
-	 -- 'sumneko_lua',
-	 'clangd',
+		-- 'sumneko_lua',
+		'omnisharp',
+		'clangd',
 		'vuels',
 	}
 

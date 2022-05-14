@@ -85,14 +85,32 @@ function highlight:highlight(colours)
 	-- bg("Normal", "NONE")
 	-- bg("Folded", "NONE")
 	-- fg("Folded", "NONE")
+	--
+	-- bg("NormalFloat", "NONE")
+	-- bg("NvimTreeNormal", "NONE")
+	-- bg("NvimTreeNormalNC", "NONE")
+	-- bg("NvimTreeStatusLineNC", "NONE")
+	-- bg("NvimTreeVertSplit", "NONE")
+	-- fg("NvimTreeVertSplit", grey)
+	--
+	-- telescope
+	-- bg("TelescopeBorder", "NONE")
+	-- bg("TelescopePrompt", "NONE")
+	-- bg("TelescopeResults", "NONE")
+	-- bg("TelescopePromptBorder", "NONE")
+	-- bg("TelescopePromptNormal", "NONE")
+	-- bg("TelescopeNormal", "NONE")
+	-- bg("TelescopePromptPrefix", "NONE")
+	-- fg("TelescopeBorder", one_bg)
+	-- fg_bg("TelescopeResultsTitle", black, blue)
 
 	-- [[ Plugin Highlights
 
 	-- Dashboard
-	-- fg("DashboardCenter", grey_fg)
-	-- fg("DashboardFooter", grey_fg)
-	-- fg("DashboardHeader", grey_fg)
-	-- fg("DashboardShortcut", grey_fg)
+	fg("DashboardCenter", grey_fg)
+	fg("DashboardFooter", grey_fg)
+	fg("DashboardHeader", grey_fg)
+	fg("DashboardShortcut", grey_fg)
 	fg("AlphaHeader", darker_white)
 	fg("AlphaButtons", darker_white)
 
@@ -163,25 +181,6 @@ function highlight:highlight(colours)
 	for i, color in ipairs(section_title_colors) do
 		cmd("hi CheatsheetTitle" .. i .. " guibg = " .. color .. " guifg=" .. black)
 	end
-
-	-- Transparency
-	-- bg("NormalFloat", "NONE")
-	-- bg("NvimTreeNormal", "NONE")
-	-- bg("NvimTreeNormalNC", "NONE")
-	-- bg("NvimTreeStatusLineNC", "NONE")
-	-- bg("NvimTreeVertSplit", "NONE")
-	-- fg("NvimTreeVertSplit", grey)
-
-	-- telescope
-	-- bg("TelescopeBorder", "NONE")
-	-- bg("TelescopePrompt", "NONE")
-	-- bg("TelescopeResults", "NONE")
-	-- bg("TelescopePromptBorder", "NONE")
-	-- bg("TelescopePromptNormal", "NONE")
-	-- bg("TelescopeNormal", "NONE")
-	-- bg("TelescopePromptPrefix", "NONE")
-	-- fg("TelescopeBorder", one_bg)
-	-- fg_bg("TelescopeResultsTitle", black, blue)
 end
 
 return highlight

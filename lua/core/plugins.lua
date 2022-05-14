@@ -66,27 +66,41 @@ return packer.startup(function()
 		'preservim/vim-pencil',
 		ft={'markdown', ''},
 	}
+	use {
+		'folke/zen-mode.nvim',
+		conf = conf.zen_mode,
+		ft={'markdown', ''},
+	}
+	use {
+		"SmiteshP/nvim-gps",
+		opt = true,
+		after = "nvim-treesitter",
+		config = conf.nvim_gps,
+		setup = lazy'nvim-gps'
+	}
 
 	-- UI plugins
-	use { 
+	use {
 		'norcalli/nvim-colorizer.lua',
 		opt = true,
 		config = conf.nvim_colorizer,
 		setup = lazy'nvim-colorizer.lua',
 	}
-	-- use { 
+	-- use {
 	-- 	'glepnir/dashboard-nvim',
 	-- 	config = conf.dashboard,
 	-- }
 	use {
 		'goolord/alpha-nvim',
-		requires = { 'kyazdani42/nvim-web-devicons' },
+		requires = {'kyazdani42/nvim-web-devicons' },
 		config = conf.dashboard,
 	}
 	use {
 		'ntbbloodbath/galaxyline.nvim',
+		opt = true,
 		config = conf.galaxyline,
-		requires = 'kyazdani42/nvim-web-devicons',
+		requires = { 'kyazdani42/nvim-web-devicons' },
+		setup = lazy'galaxyline.nvim'
 	}
 	use {
 		'lukas-reineke/indent-blankline.nvim',
@@ -102,14 +116,14 @@ return packer.startup(function()
 	}
 
 	-- Highlight/Syntax plugins
-	use { 
+	use {
 		'nvim-treesitter/nvim-treesitter',
 		-- after = 'telescope.nvim',
 		opt = true,
 		config = conf.nvim_treesitter,
 		setup = lazy'nvim-treesitter',
 	}
-	use { 
+	use {
 		'nvim-treesitter/nvim-treesitter-textobjects',
 		opt = true,
 		after = 'nvim-treesitter',
@@ -117,6 +131,7 @@ return packer.startup(function()
 	}
 	-- Add supoprt for crystal programming language
 	use 'vim-crystal/vim-crystal'
+	use 'pigpigyyy/moonplus-vim'
 
 	-- Complition
 	use {

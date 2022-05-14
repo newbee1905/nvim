@@ -23,34 +23,35 @@ end
 -- Modified from https://github.com/chriskempson/base16-vim
 function base16:apply(theme)
 	-- Neovim terminal colours
-	if fn.has "nvim" then
-		g.terminal_color_0 = "#" .. theme.base00
-		g.terminal_color_1 = "#" .. theme.base08
-		g.terminal_color_2 = "#" .. theme.base0B
-		g.terminal_color_3 = "#" .. theme.base0A
-		g.terminal_color_4 = "#" .. theme.base0D
-		g.terminal_color_5 = "#" .. theme.base0E
-		g.terminal_color_6 = "#" .. theme.base0C
-		g.terminal_color_7 = "#" .. theme.base05
-		g.terminal_color_8 = "#" .. theme.base03
-		g.terminal_color_9 = "#" .. theme.base08
-		g.terminal_color_10 = "#" .. theme.base0B
-		g.terminal_color_11 = "#" .. theme.base0A
-		g.terminal_color_12 = "#" .. theme.base0D
-		g.terminal_color_13 = "#" .. theme.base0E
-		g.terminal_color_14 = "#" .. theme.base0C
-		g.terminal_color_15 = "#" .. theme.base07
+	if vim.fn.has "nvim" then
+		vim.g.terminal_color_0 = "#" .. theme.base00
+		vim.g.terminal_color_1 = "#" .. theme.base08
+		vim.g.terminal_color_2 = "#" .. theme.base0B
+		vim.g.terminal_color_3 = "#" .. theme.base0A
+		vim.g.terminal_color_4 = "#" .. theme.base0D
+		vim.g.terminal_color_5 = "#" .. theme.base0E
+		vim.g.terminal_color_6 = "#" .. theme.base0C
+		vim.g.terminal_color_7 = "#" .. theme.base05
+		vim.g.terminal_color_8 = "#" .. theme.base03
+		vim.g.terminal_color_9 = "#" .. theme.base08
+		vim.g.terminal_color_10 = "#" .. theme.base0B
+		vim.g.terminal_color_11 = "#" .. theme.base0A
+		vim.g.terminal_color_12 = "#" .. theme.base0D
+		vim.g.terminal_color_13 = "#" .. theme.base0E
+		vim.g.terminal_color_14 = "#" .. theme.base0C
+		vim.g.terminal_color_15 = "#" .. theme.base07
 		if vim.o.background == "light" then
-			g.terminal_color_background = "#" .. theme.base05
-			g.terminal_color_foreground = "#" .. theme.base0B
+			vim.g.terminal_color_background = "#" .. theme.base05
+			vim.g.terminal_color_foreground = "#" .. theme.base0B
 		else
-			g.terminal_color_background = "#" .. theme.base00
-			g.terminal_color_foreground = "#" .. theme.base0E
+			vim.g.terminal_color_background = "#" .. theme.base00
+			vim.g.terminal_color_foreground = "#" .. theme.base0E
 		end
 	end
 
-	cmd [[hi clear]]
-	cmd [[syntax reset]]
+	-- TODO
+	-- nvim.command "hi clear"
+	-- nvim.command "syntax reset"
 
 	-- Vim editor colors
 	highlight("Normal", theme.base05, theme.base00, nil, nil)
@@ -92,7 +93,7 @@ function base16:apply(theme)
 	highlight("CursorLine", nil, theme.base01, "none", nil)
 	highlight("CursorLineNr", theme.base04, "NONE", nil, nil)
 	highlight("QuickFixLine", nil, theme.base01, "none", nil)
-	highlight("PMenu", theme.base05, theme.base01, "none", nil)
+	-- highlight("PMenu", theme.base05, theme.base01, "none", nil)
 	highlight("PMenuSel", theme.base01, theme.base05, nil, nil)
 	highlight("TabLine", theme.base03, theme.base01, "none", nil)
 	highlight("TabLineFill", theme.base03, theme.base01, "none", nil)
@@ -103,7 +104,7 @@ function base16:apply(theme)
 	highlight("Character", theme.base08, nil, nil, nil)
 	highlight("Comment", theme.base03, nil, nil, nil)
 	highlight("Conditional", theme.base0E, nil, nil, nil)
-	highlight("Constant", theme.base09, nil, nil, nil)
+	highlight("Constant", theme.base08, nil, nil, nil)
 	highlight("Define", theme.base0E, nil, "none", nil)
 	highlight("Delimiter", theme.base0F, nil, nil, nil)
 	highlight("Float", theme.base09, nil, nil, nil)
@@ -127,38 +128,16 @@ function base16:apply(theme)
 	highlight("Type", theme.base0A, nil, "none", nil)
 	highlight("Typedef", theme.base0A, nil, nil, nil)
 
-	---
-	-- Extra definitions
-	---
-
-	-- C highlighting
-	highlight("cOperator", theme.base0C, nil, nil, nil)
-	highlight("cPreCondit", theme.base0E, nil, nil, nil)
-
-	-- C# highlighting
-	highlight("csClass", theme.base0A, nil, nil, nil)
-	highlight("csAttribute", theme.base0A, nil, nil, nil)
-	highlight("csModifier", theme.base0E, nil, nil, nil)
-	highlight("csType", theme.base08, nil, nil, nil)
-	highlight("csUnspecifiedStatement", theme.base0D, nil, nil, nil)
-	highlight("csContextualStatement", theme.base0E, nil, nil, nil)
-	highlight("csNewDecleration", theme.base08, nil, nil, nil)
-
-	-- CSS highlighting
-	highlight("cssBraces", theme.base05, nil, nil, nil)
-	highlight("cssClassName", theme.base0E, nil, nil, nil)
-	highlight("cssColor", theme.base0C, nil, nil, nil)
-
 	-- Diff highlighting
-	highlight("DiffAdd", theme.base0B, theme.base01, nil, nil)
-	highlight("DiffChange", theme.base03, theme.base01, nil, nil)
-	highlight("DiffDelete", theme.base08, theme.base01, nil, nil)
-	highlight("DiffText", theme.base0D, theme.base01, nil, nil)
-	highlight("DiffAdded", theme.base0B, theme.base00, nil, nil)
-	highlight("DiffFile", theme.base08, theme.base00, nil, nil)
-	highlight("DiffNewFile", theme.base0B, theme.base00, nil, nil)
-	highlight("DiffLine", theme.base0D, theme.base00, nil, nil)
-	highlight("DiffRemoved", theme.base08, theme.base00, nil, nil)
+	-- highlight("DiffAdd", "none", theme.base0B, nil, nil)
+	-- highlight("DiffChange", "none", theme.base0B, nil, nil)
+	-- highlight("DiffDelete", "none", theme.base0F, nil, nil)
+	-- highlight("DiffText", "none", theme.base0B, nil, nil)
+	-- highlight("DiffAdded", "none", theme.base0B, nil, nil)
+	-- highlight("DiffFile", "none", theme.base00, nil, nil)
+	-- highlight("DiffNewFile", "none", theme.base0B, nil, nil)
+	-- highlight("DiffLine", "none", theme.base00, nil, nil)
+	-- highlight("DiffRemoved", "none", theme.base0F, nil, nil)
 
 	-- Git highlighting
 	highlight("gitcommitOverflow", theme.base08, nil, nil, nil)
@@ -177,33 +156,6 @@ function base16:apply(theme)
 	highlight("gitcommitDiscardedFile", theme.base08, nil, "bold", nil)
 	highlight("gitcommitSelectedFile", theme.base0B, nil, "bold", nil)
 
-	-- HTML highlighting
-	highlight("htmlBold", theme.base0A, nil, nil, nil)
-	highlight("htmlItalic", theme.base0E, nil, nil, nil)
-	highlight("htmlEndTag", theme.base05, nil, nil, nil)
-	highlight("htmlTag", theme.base05, nil, nil, nil)
-
-	-- JavaScript highlighting
-	highlight("javaScript", theme.base05, nil, nil, nil)
-	highlight("javaScriptBraces", theme.base05, nil, nil, nil)
-	highlight("javaScriptNumber", theme.base09, nil, nil, nil)
-	-- pangloss/vim-javascript highlighting
-	highlight("jsOperator", theme.base0D, nil, nil, nil)
-	highlight("jsStatement", theme.base0E, nil, nil, nil)
-	highlight("jsReturn", theme.base0E, nil, nil, nil)
-	highlight("jsThis", theme.base08, nil, nil, nil)
-	highlight("jsClassDefinition", theme.base0A, nil, nil, nil)
-	highlight("jsFunction", theme.base0E, nil, nil, nil)
-	highlight("jsFuncName", theme.base0D, nil, nil, nil)
-	highlight("jsFuncCall", theme.base0D, nil, nil, nil)
-	highlight("jsClassFuncName", theme.base0D, nil, nil, nil)
-	highlight("jsClassMethodType", theme.base0E, nil, nil, nil)
-	highlight("jsRegexpString", theme.base0C, nil, nil, nil)
-	highlight("jsGlobalObjects", theme.base0A, nil, nil, nil)
-	highlight("jsGlobalNodeObjects", theme.base0A, nil, nil, nil)
-	highlight("jsExceptions", theme.base0A, nil, nil, nil)
-	highlight("jsBuiltins", theme.base0A, nil, nil, nil)
-
 	-- Mail highlighting
 	highlight("mailQuoted1", theme.base0A, nil, nil, nil)
 	highlight("mailQuoted2", theme.base0B, nil, nil, nil)
@@ -214,55 +166,50 @@ function base16:apply(theme)
 	highlight("mailURL", theme.base0D, nil, nil, nil)
 	highlight("mailEmail", theme.base0D, nil, nil, nil)
 
-	-- Markdown highlighting
-	highlight("markdownCode", theme.base0B, nil, nil, nil)
-	highlight("markdownError", theme.base05, theme.base00, nil, nil)
-	highlight("markdownCodeBlock", theme.base0B, nil, nil, nil)
-	highlight("markdownHeadingDelimiter", theme.base0D, nil, nil, nil)
-
-	-- PHP highlighting
-	highlight("phpMemberSelector", theme.base05, nil, nil, nil)
-	highlight("phpComparison", theme.base05, nil, nil, nil)
-	highlight("phpParent", theme.base05, nil, nil, nil)
-	highlight("phpMethodsVar", theme.base0C, nil, nil, nil)
-
-	-- Python highlighting
-	highlight("pythonOperator", theme.base0E, nil, nil, nil)
-	highlight("pythonRepeat", theme.base0E, nil, nil, nil)
-	highlight("pythonInclude", theme.base0E, nil, nil, nil)
-	highlight("pythonStatement", theme.base0E, nil, nil, nil)
-
-	-- Ruby highlighting
-	highlight("rubyAttribute", theme.base0D, nil, nil, nil)
-	highlight("rubyConstant", theme.base0A, nil, nil, nil)
-	highlight("rubyInterpolationDelimiter", theme.base0F, nil, nil, nil)
-	highlight("rubyRegexp", theme.base0C, nil, nil, nil)
-	highlight("rubySymbol", theme.base0B, nil, nil, nil)
-	highlight("rubyStringDelimiter", theme.base0B, nil, nil, nil)
-
-	-- SASS highlighting
-	highlight("sassidChar", theme.base08, nil, nil, nil)
-	highlight("sassClassChar", theme.base09, nil, nil, nil)
-	highlight("sassInclude", theme.base0E, nil, nil, nil)
-	highlight("sassMixing", theme.base0E, nil, nil, nil)
-	highlight("sassMixinName", theme.base0D, nil, nil, nil)
-
 	-- Spelling highlighting
 	highlight("SpellBad", nil, nil, "undercurl", theme.base08)
 	highlight("SpellLocal", nil, nil, "undercurl", theme.base0C)
 	highlight("SpellCap", nil, nil, "undercurl", theme.base0D)
 	highlight("SpellRare", nil, nil, "undercurl", theme.base0E)
 
-	-- Java highlighting
-	highlight("javaOperator", theme.base0D, nil, nil, nil)
+	-- treesitter
+	highlight("TSAnnotation", theme.base0F, nil, "none", nil)
+	highlight("TSAttribute", theme.base0A, nil, "none", nil)
+	highlight("TSCharacter", theme.base08, nil, "none", nil)
+	highlight("TSConstBuiltin", theme.base09, nil, "none", nil)
+	highlight("TSConstMacro", theme.base08, nil, "none", nil)
+	highlight("TSError", theme.base08, nil, "none", nil)
+	highlight("TSException", theme.base08, nil, "none", nil)
+	highlight("TSFloat", theme.base09, nil, "none", nil)
+	highlight("TSFuncBuiltin", theme.base0D, nil, "none", nil)
+	highlight("TSFuncMacro", theme.base08, nil, "none", nil)
+	highlight("TSKeywordOperator", theme.base0E, nil, "none", nil)
+	highlight("TSMethod", theme.base0D, nil, "none", nil)
+	highlight("TSNamespace", theme.base08, nil, "none", nil)
+	highlight("TSNone", theme.base05, nil, "none", nil)
+	highlight("TSParameter", theme.base08, nil, "none", nil)
+	highlight("TSParameterReference", theme.base05, nil, "none", nil)
+	highlight("TSPunctDelimiter", theme.base0F, nil, "none", nil)
+	highlight("TSPunctSpecial", theme.base05, nil, "none", nil)
+	highlight("TSStringRegex", theme.base0C, nil, "none", nil)
+	highlight("TSStringEscape", theme.base0C, nil, "none", nil)
+	highlight("TSSymbol", theme.base0B, nil, "none", nil)
+	highlight("TSTagDelimiter", theme.base0F, nil, "none", nil)
+	highlight("TSText", theme.base05, nil, "none", nil)
+	highlight("TSStrong", nil, nil, "bold", nil)
+	highlight("TSEmphasis", theme.base09, nil, "none", nil)
+	highlight("TSStrike", theme.base00, nil, "strikethrough", nil)
+	highlight("TSLiteral", theme.base09, nil, "none", nil)
+	highlight("TSURI", theme.base09, nil, "underline", nil)
+	highlight("TSTypeBuiltin", theme.base0A, nil, "none", nil)
+	highlight("TSVariableBuiltin", theme.base09, nil, "none", nil)
+	highlight("TSDefinition", nil, nil, "underline", theme.base04)
+	highlight("TSDefinitionUsage", nil, nil, "underline", theme.base04)
+	highlight("TSCurrentScope", nil, nil, "bold", nil)
 
-	-- LspDiagnostic base highlight group
-	highlight("LspDiagnosticsDefaultError", theme.base08, nil, nil, nil)
-	highlight("LspDiagnosticsDefaultWarning", theme.base0A, nil, nil, nil)
-	highlight("LspDiagnosticsDefaultInformation", theme.base0D, nil, nil, nil)
-	highlight("LspDiagnosticsDefaultHint", theme.base0C, nil, nil, nil)
-
-	cmd [[syntax on]]
+	-- TODO
+	-- nvim.command 'syntax on'
+	highlight("ExtraWhitespace", nil, theme.base08)
 end
 
 return base16

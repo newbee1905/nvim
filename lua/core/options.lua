@@ -142,6 +142,7 @@ local disable_recommneded_style = function()
 	vim.g.ruby_recommended_style = 0
 	vim.g.go_recommended_style = 0
 	vim.g.lua_recommended_style = 0
+	vim.g.hare_recommended_style = 0
 end
 
 local use_filetype_lua = function()
@@ -161,7 +162,8 @@ leader_map()
 disable_distribution_plugins()
 disable_recommneded_style()
 
-local theme = 'night-owl'
+local theme = 'kanagawa'
+-- local theme = 'mountain'
 
 require 'utils.base16':apply(require('theme.' .. theme .. '-base16'))
 
