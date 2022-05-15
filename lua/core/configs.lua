@@ -4,12 +4,12 @@ local uv = vim.loop
 function config.impatient() require'impatient'.enable_profile() end
 
 function config.undotree()
-	local utils = require('utils')
-	utils:map('n', '<leader>u', '<CMD>UndotreeToggle<CR>')
+	local map = vim.keymap.set
+	map('n', '<leader>u', '<CMD>UndotreeToggle<CR>')
 end
 
 function config.telescope()
-	local utils = require('utils')
+	local map = vim.keymap.set
 
 	local defaults = {
 		vimgrep_arguments = {
@@ -58,10 +58,10 @@ function config.telescope()
 		buffer_previewer_maker = require"telescope.previewers".buffer_previewer_maker,
 	}
 
-	utils:map('n', '<leader>ff', '<CMD>Telescope find_files<CR>')
-	utils:map('n', '<leader>fg', '<CMD>Telescope live_grep<CR>')
-	utils:map('n', '<leader>fb', '<CMD>Telescope buffers<CR>')
-	utils:map('n', '<leader>fh', '<CMD>Telescope help_tag<CR>')
+	map('n', '<leader>ff', '<CMD>Telescope find_files<CR>')
+	map('n', '<leader>fg', '<CMD>Telescope live_grep<CR>')
+	map('n', '<leader>fb', '<CMD>Telescope buffers<CR>')
+	map('n', '<leader>fh', '<CMD>Telescope help_tag<CR>')
 
 	require'telescope'.setup {
 		defaults = defaults,
@@ -458,27 +458,27 @@ function config.nvim_lsp_installer()
 
 	local on_attach = function(_, bufnr)
 		local buf_set_option = function(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-		local utils = require('utils')
+		local map = vim.keymap.set
 
 		buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-		utils:map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-		utils:map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-		utils:map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-		utils:map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-		utils:map('n', '<C-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-		utils:map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>')
-		utils:map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>')
-		utils:map('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>')
-		utils:map('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-		utils:map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-		utils:map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-		utils:map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-		utils:map('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>')
-		utils:map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
-		utils:map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-		utils:map('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>')
-		utils:map('n', '<leader>f', '<cmd>lua vim.lsp.buf.format { async = true }<CR>')
+		map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+		map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+		map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
+		map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+		map('n', '<C-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+		map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>')
+		map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>')
+		map('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>')
+		map('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+		map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+		map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+		map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+		map('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>')
+		map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+		map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+		map('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>')
+		map('n', '<leader>f', '<cmd>lua vim.lsp.buf.format { async = true }<CR>')
 	end
 
 	-- Typical server that don't need extra configurations
@@ -606,9 +606,47 @@ function config.better_escape()
 end
 
 function config.nvim_autpairs()
-	require('nvim-autopairs').setup {
+	local npairs = require('nvim-autopairs')
+	local map = vim.keymap.set
+
+	npairs.setup({
+		map_bs = false,
+		map_cr = false,
 		disable_filetype = { "TelescopePrompt" , "vim" },
-	}
+	})
+
+	vim.g.coq_settings = { keymap = { recommended = false } }
+
+	-- these mappings are coq recommended mappings unrelated to nvim-autopairs
+	map('i', '<esc>', [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
+	map('i', '<c-c>', [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true })
+	map('i', '<tab>', [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true })
+	map('i', '<s-tab>', [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true })
+
+	-- skip it, if you use another global object
+	_G.MUtils= {}
+
+	MUtils.CR = function()
+		if vim.fn.pumvisible() ~= 0 then
+			if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
+				return npairs.esc('<c-y>')
+			else
+				return npairs.esc('<c-e>') .. npairs.autopairs_cr()
+			end
+		else
+			return npairs.autopairs_cr()
+		end
+	end
+	map('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true })
+
+	MUtils.BS = function()
+		if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({ 'mode' }).mode == 'eval' then
+			return npairs.esc('<c-e>') .. npairs.autopairs_bs()
+		else
+			return npairs.autopairs_bs()
+		end
+	end
+	map('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
 end
 
 function config.lightspeed()
