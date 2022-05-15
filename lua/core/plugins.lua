@@ -184,11 +184,19 @@ return packer.startup(function()
 		config = conf.nvim_autpairs,
 	}
 	use {
-		'tuwuna/cp.nvim',
+		'ggandor/lightspeed.nvim',
 		opt = true,
-		config = conf.cp,
-		setup = lazy('cp.nvim', 100),
+		config = conf.lightspeed,
+		setup = lazy'lightspeed.nvim'
 	}
+	-- R.I.P - private plugin
+	-- Mah Fiend is lazy now
+	-- use {
+	-- 	'tuwuna/cp.nvim',
+	-- 	opt = true,
+	-- 	config = conf.cp,
+	-- 	setup = lazy('cp.nvim', 100),
+	-- }
 
 	local present, compile = pcall(require, 'fvim_compiled')
 	if not present then

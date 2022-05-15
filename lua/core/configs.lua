@@ -611,6 +611,10 @@ function config.nvim_autpairs()
 	}
 end
 
+function config.lightspeed()
+	require'lightspeed'.setup()
+end
+
 function config.cp()
 end
 
