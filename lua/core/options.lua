@@ -1,5 +1,6 @@
 local global = require('global')
 local cmd, defer_fn = vim.cmd, vim.defer_fn
+local map = vim.keymap.set
 
 local function load_options()
 	vim.o.termguicolors   = true
@@ -87,7 +88,7 @@ local function load_options()
 	vim.o.autoindent      = true
 	vim.o.tabstop         = 2
 	vim.o.shiftwidth      = 2
-	vim.o.expandtab       = false 
+	vim.o.expandtab       = false
 	vim.o.softtabstop     = -1
 	vim.o.breakindentopt  = "shift:2,min:20"
 	vim.o.wrap            = false
@@ -152,8 +153,8 @@ end
 
 local leader_map = function()
 	vim.g.mapleader = " "
-	vim.api.nvim_set_keymap('n',' ','',{ noremap = true })
-	vim.api.nvim_set_keymap('x',' ','',{ noremap = true })
+	map('n',' ','',{ noremap = true })
+	map('x',' ','',{ noremap = true })
 end
 
 use_filetype_lua()

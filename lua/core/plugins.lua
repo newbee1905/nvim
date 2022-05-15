@@ -4,10 +4,9 @@ if not present then
 	return false
 end
 
-local packer = pack.packer local use = packer.use
+local packer = pack.packer
+local use = packer.use
 local conf = require('core.configs')
-local uv = vim.loop
-
 
 return packer.startup(function()
 	local lazy = require'utils.pack'.lazy
@@ -34,17 +33,6 @@ return packer.startup(function()
 		opt = true,
 		config = conf.undotree,
 		setup = lazy'undotree',
-	}
-	use {
-		'nvim-telescope/telescope-fzf-native.nvim',
-		opt = true,
-		run = 'make',
-		setup = lazy'telescope-fzf-native.nvim'
-	}
-	use {
-		'nvim-telescope/telescope-packer.nvim',
-		opt = true,
-		setup = lazy'telescope-packer.nvim'
 	}
 	use {
 		'nvim-telescope/telescope.nvim',
@@ -77,6 +65,19 @@ return packer.startup(function()
 		after = "nvim-treesitter",
 		config = conf.nvim_gps,
 		setup = lazy'nvim-gps'
+	}
+
+	-- Telescope extra plugins
+	use {
+		'nvim-telescope/telescope-fzf-native.nvim',
+		opt = true,
+		run = 'make',
+		setup = lazy'telescope-fzf-native.nvim'
+	}
+	use {
+		'nvim-telescope/telescope-packer.nvim',
+		opt = true,
+		setup = lazy'telescope-packer.nvim'
 	}
 
 	-- UI plugins
@@ -170,6 +171,12 @@ return packer.startup(function()
 		config = conf.neoscroll,
 		setup = lazy'neoscroll.nvim',
 	}
+	use {
+		'ggandor/lightspeed.nvim',
+		opt = true,
+		config = conf.lightspeed,
+		setup = lazy'lightspeed.nvim'
+	}
 
 	-- Extras + Custom Plugin
 	use {
@@ -182,12 +189,6 @@ return packer.startup(function()
 		'windwp/nvim-autopairs',
 		event = 'InsertEnter',
 		config = conf.nvim_autpairs,
-	}
-	use {
-		'ggandor/lightspeed.nvim',
-		opt = true,
-		config = conf.lightspeed,
-		setup = lazy'lightspeed.nvim'
 	}
 	-- R.I.P - private plugin
 	-- Mah Fiend is lazy now
