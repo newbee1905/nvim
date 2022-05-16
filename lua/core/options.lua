@@ -72,7 +72,7 @@ local function load_options()
 	vim.o.equalalways     = false
 	vim.o.laststatus      = 2
 	vim.o.display         = "lastline"
-	vim.o.showbreak       = "↳  "
+	-- vim.o.showbreak       = "↳  "
 	vim.o.listchars       = "tab:▏ ,nbsp:+,trail:·,extends:→,precedes:←"
 	vim.o.pumblend        = 10
 	vim.o.winblend        = 10

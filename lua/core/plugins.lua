@@ -35,16 +35,6 @@ return packer.startup(function()
 		setup = lazy'undotree',
 	}
 	use {
-		'nvim-telescope/telescope.nvim',
-		opt = true,
-		after = {
-			'telescope-fzf-native.nvim',
-			'telescope-packer.nvim',
-		},
-		config = conf.telescope,
-		setup = lazy'telescope.nvim'
-	}
-	use {
 		'numToStr/Comment.nvim',
 		opt = true,
 		config = conf.comment,
@@ -67,7 +57,7 @@ return packer.startup(function()
 		setup = lazy'nvim-gps'
 	}
 
-	-- Telescope extra plugins
+	-- Telescope
 	use {
 		'nvim-telescope/telescope-fzf-native.nvim',
 		opt = true,
@@ -78,6 +68,12 @@ return packer.startup(function()
 		'nvim-telescope/telescope-packer.nvim',
 		opt = true,
 		setup = lazy'telescope-packer.nvim'
+	}
+	use {
+		'nvim-telescope/telescope.nvim',
+		opt = true,
+		config = conf.telescope,
+		setup = lazy'telescope.nvim'
 	}
 
 	-- UI plugins
@@ -93,7 +89,7 @@ return packer.startup(function()
 	-- }
 	use {
 		'goolord/alpha-nvim',
-		requires = {'kyazdani42/nvim-web-devicons' },
+		requires = { 'kyazdani42/nvim-web-devicons' },
 		config = conf.dashboard,
 	}
 	use {
