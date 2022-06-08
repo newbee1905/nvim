@@ -97,6 +97,7 @@ local function load_options()
 	vim.o.signcolumn      = "yes"
 	vim.o.conceallevel    = 0
 	vim.o.concealcursor   = "niv"
+	vim.o.spelllang       = "en_gb"
 
 	if global.is_mac then
 		vim.g.clipboard = {
@@ -163,13 +164,14 @@ leader_map()
 disable_distribution_plugins()
 disable_recommneded_style()
 
-local theme = 'kanagawa'
--- local theme = 'mountain'
+local theme = 'gruvbox'
 
 require 'utils.base16':apply(require('theme.' .. theme .. '-base16'))
 
 defer_fn(function()
+	vim.pretty_print(require('theme.'..theme))
 	require 'utils.highlight':highlight(require('theme.'..theme))
+
 
 	cmd [[set foldmethod=expr]]
 	cmd [[set foldexpr=nvim_treesitter#foldexpr()]]

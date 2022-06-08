@@ -13,7 +13,7 @@ function paths:load_variables()
 	self.modules_dir = self.vim_path .. path_sep .. 'modules'
 	self.path_sep = path_sep
 	self.home = home
-	self.data_dir = string.format('%s/site/', stdpath('data'))
+	self.data_dir = string.format('%s/site/', stdpath'data')
 	self.packer_dir = self.cache_dir .. 'packer_compiled' .. path_sep
 end
 

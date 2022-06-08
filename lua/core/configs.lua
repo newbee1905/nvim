@@ -308,7 +308,7 @@ end
 
 function config.indent_blankline()
 	vim.g.indent_blankline_char = "▏"
-	vim.g.indent_blankline_show_first_indent_level = true
+	vim.g.indent_blankline_show_first_indent_level = false
 	vim.g.indent_blankline_filetype_exclude = {
 	 "dashboard",
 	 "dotooagenda",
@@ -317,7 +317,6 @@ function config.indent_blankline()
 	 "packer",
 	 "vimwiki",
 	 "markdown",
-	 "json",
 	 "txt",
 	 "vista",
 	 "help",
@@ -417,6 +416,19 @@ function config.gitsigns()
 	}
 end
 
+function config.presence()
+	require'presence':setup {
+		neovim_image_text   = "Chad Text Editor",
+		buttons             = {
+			{
+				label = "View my config here",
+				url		= "https://github.com/newbee1905/nvim"
+			},
+		},
+		enable_line_number  = true,
+	}
+end
+
 function config.nvim_treesitter()
 	require'nvim-treesitter.configs'.setup {
 		ensure_installed = "all",
@@ -437,6 +449,14 @@ function config.nvim_treesitter()
 			},
 		},
 	}
+end
+
+function config.vimtex()
+	vim.g.tex_flavor = 'latex'
+	vim.g.vimtex_view_method = 'zathura'
+	vim.g.vimtex_quickfix_mode = 0
+	vim.o.conceallevel = 2
+	vim.g.tex_conceal = 'abdmg'
 end
 
 function config.coq_nvim()
@@ -580,6 +600,15 @@ function config.nvim_lsp_installer()
 	tsserver:setup(coq.lsp_ensure_capabilities {
 		on_attach = on_attach,
 		root_dir = nvim_lsp.util.root_pattern("package.json"),
+		init_options = {
+			enable = true,
+			lint = true,
+		},
+	})
+
+	local _, ltex = lsp_installer.get_server('ltex')
+	ltex:setup(coq.lsp_ensure_capabilities {
+		on_attach = on_attach,
 		init_options = {
 			enable = true,
 			lint = true,

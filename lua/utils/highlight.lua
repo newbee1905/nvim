@@ -52,6 +52,9 @@ function highlight:highlight(colours)
 	-- Disable cursor line
 	cmd "hi clear CursorLine"
 
+	-- Clearer Visual
+	bg("Visual", darker_black)
+
 	-- Line number
 	fg("cursorlinenr", white)
 
@@ -82,27 +85,27 @@ function highlight:highlight(colours)
 	fg("VertSplit", one_bg2)
 
 	-- Transparency
-	-- bg("Normal", "NONE")
-	-- bg("Folded", "NONE")
-	-- fg("Folded", "NONE")
-	--
-	-- bg("NormalFloat", "NONE")
-	-- bg("NvimTreeNormal", "NONE")
-	-- bg("NvimTreeNormalNC", "NONE")
-	-- bg("NvimTreeStatusLineNC", "NONE")
-	-- bg("NvimTreeVertSplit", "NONE")
-	-- fg("NvimTreeVertSplit", grey)
-	--
+	bg("Normal", "NONE")
+	bg("Folded", "NONE")
+	fg("Folded", "NONE")
+	
+	bg("NormalFloat", "NONE")
+	bg("NvimTreeNormal", "NONE")
+	bg("NvimTreeNormalNC", "NONE")
+	bg("NvimTreeStatusLineNC", "NONE")
+	bg("NvimTreeVertSplit", "NONE")
+	fg("NvimTreeVertSplit", grey)
+	
 	-- telescope
-	-- bg("TelescopeBorder", "NONE")
-	-- bg("TelescopePrompt", "NONE")
-	-- bg("TelescopeResults", "NONE")
-	-- bg("TelescopePromptBorder", "NONE")
-	-- bg("TelescopePromptNormal", "NONE")
-	-- bg("TelescopeNormal", "NONE")
-	-- bg("TelescopePromptPrefix", "NONE")
-	-- fg("TelescopeBorder", one_bg)
-	-- fg_bg("TelescopeResultsTitle", black, blue)
+	bg("TelescopeBorder", "NONE")
+	bg("TelescopePrompt", "NONE")
+	bg("TelescopeResults", "NONE")
+	bg("TelescopePromptBorder", "NONE")
+	bg("TelescopePromptNormal", "NONE")
+	bg("TelescopeNormal", "NONE")
+	bg("TelescopePromptPrefix", "NONE")
+	fg("TelescopeBorder", one_bg)
+	fg_bg("TelescopeResultsTitle", black, blue)
 
 	-- [[ Plugin Highlights
 

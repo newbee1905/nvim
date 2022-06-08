@@ -1,6 +1,7 @@
 local cmd, fn, uv, defer_fn = vim.cmd, vim.fn, vim.loop, vim.defer_fn
 local data_dir = require'global'.data_dir
 local vim_path = require'global'.vim_path
+vim.pretty_print(data_dir)
 
 local present, packer = pcall(require, 'packer')
 
@@ -46,7 +47,8 @@ packer.init({
 	profile = {
 		enable = true,
   },
-	compile_path = data_dir .. 'lua/fvim_compiled.lua',
+	package_root = data_dir .. 'pack',
+	compile_path = data_dir .. 'lua/nvim2_compiled.lua',
 	auto_clean = true,
 	compile_on_sync = true,
 })

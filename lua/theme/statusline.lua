@@ -3,8 +3,8 @@ local gl = require("galaxyline")
 local section = gl.section
 gl.short_line_list = {"LuaTree", "packager", "Floaterm", "coc-eplorer"}
 
--- local colours = require("theme.night-owl")
-local colours = require("theme.kanagawa")
+-- local colours = require("theme.kanagawa")
+local colours = require("theme.gruvbox")
 
 local buffer_not_empty = function()
 	if fn.empty(fn.expand("%:t")) ~= 1 then return true
@@ -48,7 +48,8 @@ section.left[2] = {
 				t = colours.red
 			}
 			cmd("hi GalaxyViMode guifg=" .. mode_color[fn.mode()])
-			return "   "
+			-- return "   "
+			return "   "
 		end,
 		highlight = {colours.red, colours.statusline_bg, "bold"}
 	}

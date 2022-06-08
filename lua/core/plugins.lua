@@ -111,6 +111,12 @@ return packer.startup(function()
 		config = conf.gitsigns,
 		setup = lazy('gitsigns.nvim', 40),
 	}
+	use {
+		'andweeb/presence.nvim',
+		-- opt = true,
+		config = conf.presence,
+		-- setup = lazy'presence.nvim',
+	}
 
 	-- Highlight/Syntax plugins
 	use {
@@ -129,6 +135,20 @@ return packer.startup(function()
 	-- Add supoprt for crystal programming language
 	use 'vim-crystal/vim-crystal'
 	use 'pigpigyyy/moonplus-vim'
+	-- Latex support
+	use {
+		'lervag/vimtex',
+		opt = true,
+		config = conf.vimtex,
+		setup = function()
+			vim.api.nvim_create_autocmd("BufEnter", {
+				pattern = "*.tex",
+				callback = function()
+					require'utils.pack'.lazy'vimtex'
+				end
+			})
+		end
+	}
 
 	-- Complition
 	use {
@@ -137,6 +157,16 @@ return packer.startup(function()
 		branch = 'coq',
 		config = conf.coq_nvim,
 		setup = lazy'coq_nvim',
+	}
+	use {
+		'ms-jpq/coq.artifacts',
+		after = 'coq_nvim',
+		branch = 'artifacts',
+	}
+	use {
+		'ms-jpq/coq.thirdparty',
+		after = 'coq_nvim',
+		branch = '3p',
 	}
 
 	-- LSP
