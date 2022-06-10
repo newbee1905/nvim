@@ -436,6 +436,9 @@ function config.nvim_treesitter()
 		highlight = {
 			enable = true,
 			use_languagetree = true,
+			disable = function(_, bufnr)
+				return vim.api.nvim_buf_line_count(bufnr) > 50000
+			end,
 		},
 		textobjects = {
 			select = {
