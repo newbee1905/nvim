@@ -48,7 +48,7 @@ packer.init({
 		enable = true,
   },
 	package_root = data_dir .. 'pack',
-	compile_path = data_dir .. 'lua/nvim2_compiled.lua',
+	compile_path = data_dir .. 'lua/nvim_compiled.lua',
 	auto_clean = true,
 	compile_on_sync = true,
 })

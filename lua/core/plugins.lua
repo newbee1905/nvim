@@ -225,9 +225,9 @@ return packer.startup(function()
 	-- 	setup = lazy('cp.nvim', 100),
 	-- }
 
-	local present, compile = pcall(require, 'fvim_compiled')
+	local present, compile = pcall(require, 'nvim_compiled')
 	if not present then
 		packer.sync()
-		require('fvim_compiled')
+		require('nvim_compiled')
 	end
 end)
