@@ -150,24 +150,18 @@ local disable_recommneded_style = function()
 	vim.g.hare_recommended_style = 0
 end
 
-local use_filetype_lua = function()
-	vim.g.do_filetype_lua     = 1
-	vim.g.did_load_filetypes  = 0
-end
-
 local leader_map = function()
 	vim.g.mapleader = " "
 	map('n',' ','',{ noremap = true })
 	map('x',' ','',{ noremap = true })
 end
 
--- use_filetype_lua()
 load_options()
 leader_map()
 disable_distribution_plugins()
 disable_recommneded_style()
 
-local theme = 'gruvbox'
+local theme = 'night-owl'
 
 require 'utils.base16':apply(require('theme.' .. theme .. '-base16'))
 
@@ -176,6 +170,12 @@ defer_fn(function()
 	require 'utils.highlight':highlight(require('theme.'..theme))
 
 
+	cmd [[set foldmethod=expr]]
+	cmd [[set foldexpr=nvim_treesitter#foldexpr()]]
+end, 0)
+
+
+defer_fn(function()
 	cmd [[set foldmethod=expr]]
 	cmd [[set foldexpr=nvim_treesitter#foldexpr()]]
 end, 0)

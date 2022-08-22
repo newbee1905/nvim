@@ -481,6 +481,7 @@ end
 
 function config.nvim_lsp_installer()
 	local nvim_lsp = require("lspconfig")
+	vim.cmd [[silent! do FileType]]
 	local coq = require('coq')
 	local lsp_installer = require('nvim-lsp-installer')
 
