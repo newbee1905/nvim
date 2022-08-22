@@ -119,6 +119,10 @@ return packer.startup(function()
 	}
 
 	-- Highlight/Syntax plugins
+	-- use {
+	-- 	'newbee1905/nightfox.nvim',
+	-- 	config = conf.nightfox,
+	-- }
 	use {
 		'nvim-treesitter/nvim-treesitter',
 		-- after = 'telescope.nvim',
@@ -134,7 +138,10 @@ return packer.startup(function()
 	}
 	-- Add supoprt for crystal programming language
 	use 'vim-crystal/vim-crystal'
+	-- Add supoprt for moonscript programming language
 	use 'pigpigyyy/moonplus-vim'
+	-- Add supoprt for rhai programming language
+	use 'kuon/rhai.vim'
 	-- Latex support
 	use {
 		'lervag/vimtex',
@@ -149,6 +156,7 @@ return packer.startup(function()
 			})
 		end
 	}
+	use "git@git.sr.ht:~newbee1905/hare.vim"
 
 	-- Complition
 	use {
