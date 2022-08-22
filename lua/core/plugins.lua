@@ -149,6 +149,20 @@ return packer.startup(function()
 			})
 		end
 	}
+	-- Org support
+	use {
+		'nvim-orgmode/orgmode',
+		opt = true,
+		config = conf.orgmode,
+		setup = function()
+			vim.api.nvim_create_autocmd("BufEnter", {
+				pattern = "*.org",
+				callback = function()
+					require'utils.pack'.lazy'orgmode'
+				end
+			})
+		end
+	}
 
 	-- Complition
 	use {

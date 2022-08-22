@@ -462,6 +462,11 @@ function config.vimtex()
 	vim.g.tex_conceal = 'abdmg'
 end
 
+function config.orgmode()
+	require'orgmode'.setup_ts_grammar{}
+	require'orgmode'.setup{}
+end
+
 function config.coq_nvim()
 	vim.g.coq_settings = {
 		auto_start = 'shut-up',

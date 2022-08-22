@@ -109,12 +109,15 @@ local function load_options()
 			paste = {
 				["+"] = "pbpaste",
 				["*"] = "pbpaste",
-		},
-		cache_enabled = 0
+			},
+			cache_enabled = 0
 		}
 		vim.g.python_host_prog = '/usr/bin/python'
 		vim.g.python3_host_prog = '/usr/local/bin/python3'
 	end
+
+	vim.g.python_host_prog = '/usr/bin/python'
+	vim.g.python3_host_prog = '/usr/bin/python3'
 end
 
 local disable_distribution_plugins = function()
@@ -158,7 +161,7 @@ local leader_map = function()
 	map('x',' ','',{ noremap = true })
 end
 
-use_filetype_lua()
+-- use_filetype_lua()
 load_options()
 leader_map()
 disable_distribution_plugins()
