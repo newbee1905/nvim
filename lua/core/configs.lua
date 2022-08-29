@@ -1,7 +1,7 @@
 local config = {}
 local uv = vim.loop
 
-function config.impatient() require'impatient'.enable_profile() end
+function config.impatient() require 'impatient'.enable_profile() end
 
 function config.undotree()
 	local map = vim.keymap.set
@@ -41,9 +41,9 @@ function config.telescope()
 			height = 0.80,
 			preview_cutoff = 120,
 		},
-		file_sorter = require"telescope.sorters".get_fuzzy_file,
+		file_sorter = require "telescope.sorters".get_fuzzy_file,
 		file_ignore_patterns = { "node_modules", "dist/static" },
-		generic_sorter = require"telescope.sorters".get_generic_fuzzy_sorter,
+		generic_sorter = require "telescope.sorters".get_generic_fuzzy_sorter,
 		path_display = { "truncate" },
 		winblend = 0,
 		border = {},
@@ -51,11 +51,11 @@ function config.telescope()
 		color_devicons = true,
 		use_less = true,
 		set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
-		file_previewer = require"telescope.previewers".vim_buffer_cat.new,
-		grep_previewer = require"telescope.previewers".vim_buffer_vimgrep.new,
-		qflist_previewer = require"telescope.previewers".vim_buffer_qflist.new,
+		file_previewer = require "telescope.previewers".vim_buffer_cat.new,
+		grep_previewer = require "telescope.previewers".vim_buffer_vimgrep.new,
+		qflist_previewer = require "telescope.previewers".vim_buffer_qflist.new,
 		-- Developer configurations: Not meant for general override
-		buffer_previewer_maker = require"telescope.previewers".buffer_previewer_maker,
+		buffer_previewer_maker = require "telescope.previewers".buffer_previewer_maker,
 	}
 
 	map('n', '<leader>ff', '<CMD>Telescope find_files<CR>')
@@ -63,21 +63,21 @@ function config.telescope()
 	map('n', '<leader>fb', '<CMD>Telescope buffers<CR>')
 	map('n', '<leader>fh', '<CMD>Telescope help_tag<CR>')
 
-	require'telescope'.setup {
+	require 'telescope'.setup {
 		defaults = defaults,
 		extensions = {
 			fzf = {
-				fuzzy = true,							       -- false will only do exact matching
-				override_generic_sorter = true,	-- override the generic sorter
-				override_file_sorter = true,		-- override the file sorter
-				case_mode = "smart_case",			-- or "ignore_case" or "respect_case"
-																				-- the default case_mode is "smart_case"
+				fuzzy = true, -- false will only do exact matching
+				override_generic_sorter = true, -- override the generic sorter
+				override_file_sorter = true, -- override the file sorter
+				case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+				-- the default case_mode is "smart_case"
 			}
 		}
 	}
 
 	-- require'telescope'.load_extension "fzf"
-	require'telescope'.load_extension "packer"
+	require 'telescope'.load_extension "packer"
 end
 
 function config.comment()
@@ -86,7 +86,7 @@ function config.comment()
 end
 
 function config.zen_mode()
-	require'zen-mode'.setup {
+	require 'zen-mode'.setup {
 		window = {
 			backdrop = 0.8,
 			width = 120,
@@ -108,14 +108,14 @@ end
 
 function config.nvim_gps()
 	local conf = {
-		disable_icons = false,	         -- Setting it to true will disable all icons
+		disable_icons = false, -- Setting it to true will disable all icons
 
 		icons = {
-			["class-name"] = ' ',	    -- Classes and class-like objects
-			["function-name"] = ' ',	 -- Functions
-			["method-name"] = ' ',	   -- Methods (functions inside class-like objects)
-			["container-name"] = '⛶ ',	-- Containers (example: lua tables)
-			["tag-name"] = '炙'	       -- Tags (example: html tags)
+			["class-name"] = ' ', -- Classes and class-like objects
+			["function-name"] = ' ', -- Functions
+			["method-name"] = ' ', -- Methods (functions inside class-like objects)
+			["container-name"] = '⛶ ', -- Containers (example: lua tables)
+			["tag-name"] = '炙' -- Tags (example: html tags)
 		},
 
 		-- Add custom configuration per language or
@@ -199,11 +199,11 @@ function config.nvim_gps()
 		-- indicator used when context hits depth limit
 		depth_limit_indicator = ".."
 	}
-	require'nvim-gps'.setup(conf)
+	require 'nvim-gps'.setup(conf)
 end
 
 function config.nvim_colorizer()
-	require'colorizer'.setup({
+	require 'colorizer'.setup({
 		"*",
 	}, {
 		mode = 'background',
@@ -291,7 +291,7 @@ function config.dashboard()
 		buttons = buttons,
 	}
 
-	require'alpha'.setup {
+	require 'alpha'.setup {
 		layout = {
 			{ type = "padding", val = 5 },
 			section.header,
@@ -310,64 +310,64 @@ function config.indent_blankline()
 	vim.g.indent_blankline_char = "▏"
 	vim.g.indent_blankline_show_first_indent_level = false
 	vim.g.indent_blankline_filetype_exclude = {
-	 "dashboard",
-	 "dotooagenda",
-	 "log",
-	 "gitcommit",
-	 "packer",
-	 "vimwiki",
-	 "markdown",
-	 "txt",
-	 "vista",
-	 "help",
-	 "todoist",
-	 "NvimTree",
-	 "peekaboo",
-	 "git",
-	 "TelescopePrompt",
-	 "undotree",
-	 "flutterToolsOutline",
-	 "" -- for all buffers without a file type
+		"dashboard",
+		"dotooagenda",
+		"log",
+		"gitcommit",
+		"packer",
+		"vimwiki",
+		"markdown",
+		"txt",
+		"vista",
+		"help",
+		"todoist",
+		"NvimTree",
+		"peekaboo",
+		"git",
+		"TelescopePrompt",
+		"undotree",
+		"flutterToolsOutline",
+		"" -- for all buffers without a file type
 	}
-	vim.g.indent_blankline_buftype_exclude = {"terminal", "nofile"}
+	vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
 	vim.g.indent_blankline_show_trailing_blankline_indent = false
 	vim.g.indent_blankline_show_current_context = true
 	vim.g.indent_blankline_context_patterns = {
-	 "class",
-	 "function",
-	 "method",
-	 "block",
-	 "list_literal",
-	 "selector",
-	 "^if",
-	 "^table",
-	 "if_statement",
-	 "while",
-	 "for"
+		"class",
+		"function",
+		"method",
+		"block",
+		"list_literal",
+		"selector",
+		"^if",
+		"^table",
+		"if_statement",
+		"while",
+		"for"
 	}
 	-- because lazy load indent-blankline so need readd this autocmd
 	vim.cmd [[autocmd CursorMoved * IndentBlanklineRefresh]]
 end
 
 function config.gitsigns()
-	require'gitsigns'.setup {
-		signs = {
-			add			 = {hl = 'GitSignsAdd'	, text = '│', numhl='GitSignsAddNr'	, linehl='GitSignsAddLn'},
-			change		 = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-			delete		 = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-			topdelete	 = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-			changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+	require 'gitsigns'.setup {
+		signs                             = {
+			add          = { hl = 'GitSignsAdd', text = '│', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+			change       = { hl = 'GitSignsChange', text = '│', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+			delete       = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+			topdelete    = { hl = 'GitSignsDelete', text = '‾', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+			changedelete = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
 		},
-		signcolumn = true,	-- Toggle with `:Gitsigns toggle_signs`
-		numhl		= false, -- Toggle with `:Gitsigns toggle_numhl`
-		linehl		= false, -- Toggle with `:Gitsigns toggle_linehl`
-		word_diff	= false, -- Toggle with `:Gitsigns toggle_word_diff`
-		keymaps = {
+		signcolumn                        = true, -- Toggle with `:Gitsigns toggle_signs`
+		numhl                             = false, -- Toggle with `:Gitsigns toggle_numhl`
+		linehl                            = false, -- Toggle with `:Gitsigns toggle_linehl`
+		word_diff                         = false, -- Toggle with `:Gitsigns toggle_word_diff`
+		keymaps                           = {
 			-- Default keymap options
 			noremap = true,
 
-			['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
-			['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
+			['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'" },
+			['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'" },
 
 			['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
 			['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
@@ -384,13 +384,13 @@ function config.gitsigns()
 			['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
 			['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
 		},
-		watch_gitdir = {
+		watch_gitdir                      = {
 			interval = 1000,
 			follow_files = true
 		},
-		attach_to_untracked = true,
-		current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
-		current_line_blame_opts = {
+		attach_to_untracked               = true,
+		current_line_blame                = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+		current_line_blame_opts           = {
 			virt_text = true,
 			virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
 			delay = 1000,
@@ -398,11 +398,11 @@ function config.gitsigns()
 		current_line_blame_formatter_opts = {
 			relative_time = false
 		},
-		sign_priority = 100,
-		update_debounce = 100,
-		status_formatter = nil, -- Use default
-		max_file_length = 40000,
-		preview_config = {
+		sign_priority                     = 100,
+		update_debounce                   = 100,
+		status_formatter                  = nil, -- Use default
+		max_file_length                   = 40000,
+		preview_config                    = {
 			-- Options passed to nvim_open_win
 			border = 'single',
 			style = 'minimal',
@@ -410,27 +410,27 @@ function config.gitsigns()
 			row = 0,
 			col = 1
 		},
-		yadm = {
+		yadm                              = {
 			enable = false
 		}
 	}
 end
 
 function config.presence()
-	require'presence':setup {
-		neovim_image_text   = "Chad Text Editor",
-		buttons             = {
+	require 'presence':setup {
+		neovim_image_text  = "Chad Text Editor",
+		buttons            = {
 			{
 				label = "View my config here",
-				url		= "https://github.com/newbee1905/nvim"
+				url   = "https://github.com/newbee1905/nvim"
 			},
 		},
-		enable_line_number  = true,
+		enable_line_number = true,
 	}
 end
 
 function config.nvim_treesitter()
-	require'nvim-treesitter.configs'.setup {
+	require 'nvim-treesitter.configs'.setup {
 		ensure_installed = "all",
 		ignore_install = { "ocaml", "ocaml_interface", "ocamllex", "phpdoc" },
 		highlight = {
@@ -463,8 +463,8 @@ function config.vimtex()
 end
 
 function config.orgmode()
-	require'orgmode'.setup_ts_grammar{}
-	require'orgmode'.setup{}
+	require 'orgmode'.setup_ts_grammar {}
+	require 'orgmode'.setup {}
 end
 
 function config.coq_nvim()
@@ -512,21 +512,21 @@ function config.nvim_lsp_installer()
 
 	-- Typical server that don't need extra configurations
 	local servers = {
-	 'lemminx',
-	 'yamlls',
-	 'vuels',
-	 'pyright',
+		'lemminx',
+		'yamlls',
+		'vuels',
+		'pyright',
 		-- 'tsserver',
 		-- 'denols',
-	 'svelte',
-	 'cmake',
-	 'cssls',
-	 'texlab',
-	 -- 'solargraph',
-	 'html',
-	 'gopls',
-	 'rust_analyzer',
-	 'bashls',
+		'svelte',
+		'cmake',
+		'cssls',
+		'texlab',
+		-- 'solargraph',
+		'html',
+		'gopls',
+		'rust_analyzer',
+		'bashls',
 		-- 'sumneko_lua',
 		'omnisharp',
 		'clangd',
@@ -580,9 +580,9 @@ function config.nvim_lsp_installer()
 	local _, solargraph = lsp_installer.get_server('solargraph')
 	solargraph:setup(coq.lsp_ensure_capabilities {
 		on_attach = on_attach,
-		filetypes = {"ruby", "rakefile"},
-	 root_dir = nvim_lsp.util.root_pattern("Gemfile", ".git", "."),
-	 settings = {
+		filetypes = { "ruby", "rakefile" },
+		root_dir = nvim_lsp.util.root_pattern("Gemfile", ".git", "."),
+		settings = {
 			solargraph = {
 				autoformat = true,
 				completion = true,
@@ -592,7 +592,7 @@ function config.nvim_lsp_installer()
 				rename = true,
 				symbols = true
 			}
-	 }
+		}
 	})
 
 	local _, denols = lsp_installer.get_server('denols')
@@ -635,7 +635,7 @@ function config.neoscroll()
 end
 
 function config.better_escape()
-	require'better_escape'.setup {
+	require 'better_escape'.setup {
 		mapping = { "jk", "kj" },
 		timeout = vim.o.timeoutlen,
 		clear_empty_lines = true,
@@ -645,50 +645,34 @@ end
 
 function config.nvim_autpairs()
 	local npairs = require('nvim-autopairs')
-	local map = vim.keymap.set
+	local Rule = require('nvim-autopairs.rule')
+	local ts_conds = require('nvim-autopairs.ts-conds')
 
 	npairs.setup({
-		map_bs = false,
-		map_cr = false,
-		disable_filetype = { "TelescopePrompt" , "vim" },
+		map_bs = true,
+		map_cr = true,
+		map_c_h = true,
+		map_c_w = true,
+		disable_filetype = { "TelescopePrompt", "vim" },
+		check_ts = true,
+		ts_config = {
+			lua = { 'string' }, -- it will not add a pair on that treesitter node
+			javascript = { 'template_string' },
+			java = false, -- don't check treesitter on java
+		}
 	})
 
-	vim.g.coq_settings = { keymap = { recommended = false } }
-
-	-- these mappings are coq recommended mappings unrelated to nvim-autopairs
-	map('i', '<esc>', [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
-	map('i', '<c-c>', [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true })
-	map('i', '<tab>', [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true })
-	map('i', '<s-tab>', [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true })
-
-	-- skip it, if you use another global object
-	_G.MUtils= {}
-
-	MUtils.CR = function()
-		if vim.fn.pumvisible() ~= 0 then
-			if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
-				return npairs.esc('<c-y>')
-			else
-				return npairs.esc('<c-e>') .. npairs.autopairs_cr()
-			end
-		else
-			return npairs.autopairs_cr()
-		end
-	end
-	map('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true })
-
-	MUtils.BS = function()
-		if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({ 'mode' }).mode == 'eval' then
-			return npairs.esc('<c-e>') .. npairs.autopairs_bs()
-		else
-			return npairs.autopairs_bs()
-		end
-	end
-	map('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
+	-- press % => %% only while inside a comment or string
+	npairs.add_rules({
+		Rule("%", "%", "lua")
+			:with_pair(ts_conds.is_ts_node({'string','comment'})),
+		Rule("$", "$", "lua")
+			:with_pair(ts_conds.is_not_ts_node({'function'}))
+	})
 end
 
 function config.lightspeed()
-	require'lightspeed'.setup {
+	require 'lightspeed'.setup {
 		ignore_case = false,
 		exit_after_idle_msecs = { unlabeled = 1000, labeled = nil },
 		--- s/x ---
@@ -699,8 +683,8 @@ function config.lightspeed()
 		substitute_chars = { ['\r'] = '¬', },
 		-- Leaving the appropriate list empty effectively disables "smart" mode,
 		-- and forces auto-jump to be on or off.
-		safe_labels = { },
-		labels = { },
+		safe_labels = {},
+		labels = {},
 		-- These keys are captured directly by the plugin at runtime.
 		special_keys = {
 			next_match_group = '<space>',
