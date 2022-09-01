@@ -5,136 +5,99 @@ if not present then
 end
 
 local packer = pack.packer
-local use = packer.use
+local use = require 'utils.pack'.use
+
 local conf = require('core.configs')
 
 return packer.startup(function()
-	local lazy = require'utils.pack'.lazy
-
+	local lazy = require 'utils.pack'.lazy
 	-- Important plugins
-	use {
-		'lewis6991/impatient.nvim',
-		config = conf.impatient,
-	}
+	use 'lewis6991/impatient.nvim' { config = conf.impatient }
 	-- use 'nathom/filetype.nvim'
-	use {
-		'wbthomason/packer.nvim',
-		opt = true,
-	}
+	use 'wbthomason/packer.nvim' { opt = true }
 
 	-- Utilites
-	use 'nvim-lua/plenary.nvim'
-	use {
-		'dstein64/vim-startuptime',
-		opt = true,
-	}
-	use {
-		'mbbill/undotree',
-		opt = true,
+	use "nvim-lua/plenary.nvim" { module = "plenary" }
+	use 'dstein64/vim-startuptime' { opt = true }
+
+	use 'mbbill/undotree' {
 		config = conf.undotree,
-		setup = lazy'undotree',
+		setup = 'undotree',
 	}
-	use {
-		'numToStr/Comment.nvim',
-		opt = true,
+	use 'numToStr/Comment.nvim' {
 		config = conf.comment,
-		setup = lazy'Comment.nvim'
+		setup = 'Comment.nvim'
 	}
-	use {
-		'preservim/vim-pencil',
-		ft={'markdown', ''},
+	use 'preservim/vim-pencil' {
+		ft = { 'markdown', '' },
 	}
-	use {
-		'folke/zen-mode.nvim',
+	use 'folke/zen-mode.nvim' {
 		conf = conf.zen_mode,
-		ft={'markdown', ''},
+		ft = { 'markdown', '' },
 	}
-	use {
-		"SmiteshP/nvim-gps",
-		opt = true,
+
+	use "SmiteshP/nvim-gps" {
 		after = "nvim-treesitter",
 		config = conf.nvim_gps,
-		setup = lazy'nvim-gps'
+		setup = 'nvim-gps'
 	}
 
 	-- Telescope
-	use {
-		'nvim-telescope/telescope-fzf-native.nvim',
-		opt = true,
+	use 'nvim-telescope/telescope-fzf-native.nvim' {
 		run = 'make',
-		setup = lazy'telescope-fzf-native.nvim'
+		setup = 'telescope-fzf-native.nvim'
 	}
-	use {
-		'nvim-telescope/telescope-packer.nvim',
-		opt = true,
-		setup = lazy'telescope-packer.nvim'
+	use 'nvim-telescope/telescope-packer.nvim' {
+		setup = 'telescope-packer.nvim'
 	}
-	use {
-		'nvim-telescope/telescope.nvim',
-		opt = true,
+	use 'nvim-telescope/telescope.nvim' {
 		config = conf.telescope,
-		setup = lazy'telescope.nvim'
+		setup = 'telescope.nvim'
 	}
 
 	-- UI plugins
-	use {
-		'norcalli/nvim-colorizer.lua',
-		opt = true,
+	use 'norcalli/nvim-colorizer.lua' {
 		config = conf.nvim_colorizer,
-		setup = lazy'nvim-colorizer.lua',
+		setup = 'nvim-colorizer.lua',
 	}
-	-- use {
-	-- 	'glepnir/dashboard-nvim',
+	-- use glepnir/dashboard-nvim' {
 	-- 	config = conf.dashboard,
 	-- }
-	use {
-		'goolord/alpha-nvim',
+	use 'goolord/alpha-nvim' {
 		requires = { 'kyazdani42/nvim-web-devicons' },
 		config = conf.dashboard,
 	}
-	use {
-		'ntbbloodbath/galaxyline.nvim',
-		opt = true,
+	use 'ntbbloodbath/galaxyline.nvim' {
 		config = conf.galaxyline,
 		requires = { 'kyazdani42/nvim-web-devicons' },
-		setup = lazy'galaxyline.nvim'
+		setup = 'galaxyline.nvim'
 	}
-	use {
-		'lukas-reineke/indent-blankline.nvim',
-		opt = true,
+	use 'lukas-reineke/indent-blankline.nvim' {
 		config = conf.indent_blankline,
-		setup = lazy'indent-blankline.nvim',
+		setup = 'indent-blankline.nvim',
 	}
-	use {
-		'lewis6991/gitsigns.nvim',
-		opt = true,
+	use 'lewis6991/gitsigns.nvim' {
 		config = conf.gitsigns,
 		setup = lazy('gitsigns.nvim', 40),
 	}
-	use {
-		'andweeb/presence.nvim',
+	use 'andweeb/presence.nvim' {
 		-- opt = true,
 		config = conf.presence,
 		-- setup = lazy'presence.nvim',
 	}
 
 	-- Highlight/Syntax plugins
-	-- use {
-	-- 	'newbee1905/nightfox.nvim',
+	-- use newbee1905/nightfox.nvim' {
 	-- 	config = conf.nightfox,
 	-- }
-	use {
-		'nvim-treesitter/nvim-treesitter',
+	use 'nvim-treesitter/nvim-treesitter' {
 		-- after = 'telescope.nvim',
-		opt = true,
 		config = conf.nvim_treesitter,
-		setup = lazy'nvim-treesitter',
+		setup = 'nvim-treesitter',
 	}
-	use {
-		'nvim-treesitter/nvim-treesitter-textobjects',
-		opt = true,
+	use 'nvim-treesitter/nvim-treesitter-textobjects' {
 		after = 'nvim-treesitter',
-		setup = lazy'nvim-treesitter-textobjects',
+		setup = 'nvim-treesitter-textobjects',
 	}
 	-- Add supoprt for crystal programming language
 	use 'vim-crystal/vim-crystal'
@@ -143,91 +106,72 @@ return packer.startup(function()
 	-- Add supoprt for rhai programming language
 	use 'kuon/rhai.vim'
 	-- Latex support
-	use {
-		'lervag/vimtex',
-		opt = true,
+	use 'lervag/vimtex' {
 		config = conf.vimtex,
 		setup = function()
 			vim.api.nvim_create_autocmd("BufEnter", {
 				pattern = "*.tex",
 				callback = function()
-					require'utils.pack'.lazy'vimtex'
+					require 'utils.pack'.lazy 'vimtex'
 				end
 			})
 		end
 	}
-	use "git@git.sr.ht:~newbee1905/hare.vim"
+
+	use 'https://git.sr.ht/~newbee1905/hare.vim' { module = "hare.nvim" }
 
 	-- Complition
-	use {
-		'ms-jpq/coq_nvim',
-		opt = true,
+	use 'ms-jpq/coq_nvim' {
 		branch = 'coq',
 		config = conf.coq_nvim,
-		setup = lazy'coq_nvim',
+		setup = 'coq_nvim',
 	}
-	use {
-		'ms-jpq/coq.artifacts',
+	use 'ms-jpq/coq.artifacts' {
 		after = 'coq_nvim',
 		branch = 'artifacts',
 	}
-	use {
-		'ms-jpq/coq.thirdparty',
+	use 'ms-jpq/coq.thirdparty' {
 		after = 'coq_nvim',
 		branch = '3p',
 	}
 
 	-- LSP
-	use {
-		'neovim/nvim-lspconfig',
-		opt = true,
+	use 'neovim/nvim-lspconfig' {
 		after = 'coq_nvim',
-		setup = lazy'nvim-lspconfig',
+		setup = 'nvim-lspconfig',
 	}
-	use {
-		'williamboman/nvim-lsp-installer',
-		opt = true,
+	use 'williamboman/nvim-lsp-installer' {
 		after = 'nvim-lspconfig',
 		config = conf.nvim_lsp_installer,
-		setup = lazy'nvim-lsp-installer',
+		setup = 'nvim-lsp-installer',
 	}
 
 	-- Movement
-	use {
-		'xiyaowong/accelerated-jk.nvim',
-		opt = true,
+	use 'xiyaowong/accelerated-jk.nvim' {
 		config = conf.accelerated_jk,
-		setup = lazy'accelerated-jk.nvim',
+		setup = 'accelerated-jk.nvim',
 	}
-	use {
-		'karb94/neoscroll.nvim',
-		opt = true,
+	use 'karb94/neoscroll.nvim' {
 		config = conf.neoscroll,
-		setup = lazy'neoscroll.nvim',
+		setup = 'neoscroll.nvim',
 	}
-	use {
-		'ggandor/lightspeed.nvim',
-		opt = true,
+	use 'ggandor/lightspeed.nvim' {
 		config = conf.lightspeed,
-		setup = lazy'lightspeed.nvim'
+		setup = 'lightspeed.nvim'
 	}
 
 	-- Extras + Custom Plugin
-	use {
-		'max397574/better-escape.nvim',
-		opt = true,
+	use 'max397574/better-escape.nvim' {
 		config = conf.better_escape,
-		setup = lazy'better-escape.nvim',
+		setup = 'better-escape.nvim',
 	}
-	use {
-		'windwp/nvim-autopairs',
+	use 'windwp/nvim-autopairs' {
 		event = 'InsertEnter',
 		config = conf.nvim_autpairs,
 	}
 	-- R.I.P - private plugin
 	-- Mah Fiend is lazy now
-	-- use {
-	-- 	'tuwuna/cp.nvim',
+	-- use tuwuna/cp.nvim' {
 	-- 	opt = true,
 	-- 	config = conf.cp,
 	-- 	setup = lazy('cp.nvim', 100),

@@ -1,4 +1,7 @@
 require('core.options')
-require('core.plugins')
-require('core.mappings')
+require('core.global')
 
+vim.defer_fn(function()
+	require('core.plugins')
+	require('core.mappings')
+end, 0)

@@ -1,7 +1,8 @@
 local cmd, fn, uv, defer_fn = vim.cmd, vim.fn, vim.loop, vim.defer_fn
 local data_dir = require'global'.data_dir
 local vim_path = require'global'.vim_path
-vim.pretty_print(data_dir)
+
+local M = {}
 
 local present, packer = pcall(require, 'packer')
 
@@ -34,7 +35,9 @@ if not present then
 	end
 end
 
-packer.init({
+M.packer = packer
+
+M.packer.init({
 	display = {
 		open_fn = function()
 			return require('packer.util').float({ border = 'rounded' })
@@ -53,7 +56,7 @@ packer.init({
 	compile_on_sync = true,
 })
 
-local lazy = function(plugin, timer)
+M.lazy = function(plugin, timer)
 	if plugin then
 		timer = timer or 0
 		defer_fn(function()
@@ -62,7 +65,17 @@ local lazy = function(plugin, timer)
 	end
 end
 
-return {
-	packer = packer,
-	lazy = lazy,
-}
+M.use = function(plugin)
+	return function(opts)
+		opts = opts or {}
+		if not opts[1] or fn.isdirectory(fn.expand(opts[1])) == 0 then opts[1] = plugin end
+		if type(opts.setup) == "string" then
+			opts.setup = "lazy'"..opts.setup.."'"
+		end
+		if opts.setup then opts.opt = true end
+
+		packer.use(opts)
+	end
+end
+
+return M
