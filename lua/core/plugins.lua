@@ -11,6 +11,7 @@ local conf = require('core.configs')
 
 return packer.startup(function()
 	local lazy = require 'utils.pack'.lazy
+
 	-- Important plugins
 	use 'lewis6991/impatient.nvim' { config = conf.impatient }
 	-- use 'nathom/filetype.nvim'
