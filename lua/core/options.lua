@@ -72,7 +72,7 @@ local function load_options()
 	vim.o.equalalways     = false
 	vim.o.laststatus      = 2
 	vim.o.display         = "lastline"
-	-- vim.o.showbreak       = "↳  "
+	vim.o.showbreak       = "↳  "
 	vim.o.listchars       = "tab:▏ ,nbsp:+,trail:·,extends:→,precedes:←"
 	vim.o.pumblend        = 10
 	vim.o.winblend        = 10
@@ -84,7 +84,7 @@ local function load_options()
 	vim.o.undofile        = true
 	vim.o.synmaxcol       = 2500
 	vim.o.formatoptions   = "1jcroql"
-	vim.o.textwidth       = 80
+	vim.o.textwidth       = 100
 	vim.o.autoindent      = true
 	vim.o.tabstop         = 2
 	vim.o.shiftwidth      = 2
@@ -95,6 +95,7 @@ local function load_options()
 	vim.o.linebreak       = true
 	vim.o.foldenable      = true
 	vim.o.signcolumn      = "yes"
+	vim.o.colorcolumn     = "100"
 	vim.o.conceallevel    = 0
 	vim.o.concealcursor   = "niv"
 	vim.o.spelllang       = "en_gb"
