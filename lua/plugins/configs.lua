@@ -202,6 +202,48 @@ function config.nvim_gps()
 	require 'nvim-gps'.setup(conf)
 end
 
+function config.theme()
+	local present, catppuccin = pcall(require, "catppuccin")
+	if not present then return end
+
+	vim.g.catppuccin_flavour = "mocha"
+
+	catppuccin.setup {
+		transparent_background = true,
+		color_overrides = {
+			mocha = {
+				base = "#131313",
+			},
+		},
+		custom_highlights = {
+			VertSplit = { fg = "#313244" },
+			CmpBorder = { fg = "#3e4145" },
+		},
+		term_colors = true,
+		compile = {
+			enabled = true,
+		},
+		integrations = {
+			nvimtree = {
+				enabled = false,
+			},
+			-- dap = {
+			-- 	enabled = true,
+			-- 	enable_ui = true,
+			-- },
+			lsp_saga = true,
+			leap = true,
+			neogit = true,
+			indent_blankline = {
+				enabled = true,
+				colored_indent_levels = true,
+			},
+		},
+	}
+
+	vim.api.nvim_command "colorscheme catppuccin"
+end
+
 function config.nvim_colorizer()
 	require 'colorizer'.setup({
 		"*",
@@ -665,9 +707,9 @@ function config.nvim_autpairs()
 	-- press % => %% only while inside a comment or string
 	npairs.add_rules({
 		Rule("%", "%", "lua")
-			:with_pair(ts_conds.is_ts_node({'string','comment'})),
+				:with_pair(ts_conds.is_ts_node({ 'string', 'comment' })),
 		Rule("$", "$", "lua")
-			:with_pair(ts_conds.is_not_ts_node({'function'}))
+				:with_pair(ts_conds.is_not_ts_node({ 'function' }))
 	})
 end
 

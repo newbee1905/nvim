@@ -1,10 +1,12 @@
-local cmd, fn = vim.cmd, vim.fn
 local gl = require("galaxyline")
 local section = gl.section
-gl.short_line_list = {"LuaTree", "packager", "Floaterm", "coc-eplorer"}
+gl.short_line_list = {"LuaTree", "packager", "Floaterm"}
 
 -- local colours = require("theme.kanagawa")
-local colours = require("theme.gruvbox")
+-- local colours = require("theme.gruvbox")
+local colours = require("catppuccin.palettes").get_palette "mocha"
+
+colours.statusline_bg = colours.base
 
 local buffer_not_empty = function()
 	if fn.empty(fn.expand("%:t")) ~= 1 then return true
@@ -33,17 +35,17 @@ section.left[2] = {
 				V = colours.blue,
 				c = colours.red,
 				no = colours.pink,
-				s = colours.orange,
-				S = colours.orange,
-				[""] = colours.orange,
+				s = colours.flamingo,
+				S = colours.flamingo,
+				[""] = colours.flamingo,
 				ic = colours.yellow,
-				R = colours.purple,
-				Rv = colours.purple,
+				R = colours.mauve,
+				Rv = colours.mauve,
 				cv = colours.red,
 				ce = colours.red,
-				r = colours.cyan,
-				rm = colours.cyan,
-				["r?"] = colours.cyan,
+				r = colours.sky,
+				rm = colours.sky,
+				["r?"] = colours.sky,
 				["!"] = colours.red,
 				t = colours.red
 			}
@@ -69,8 +71,8 @@ section.left[4] = {
 		end,
 		condition = buffer_not_empty,
 		separator = " ",
-		separator_highlight = {colours.purple, colours.statusline_bg},
-		highlight = {colours.purple, colours.statusline_bg, "bold"}
+		separator_highlight = {colours.mauve, colours.statusline_bg},
+		highlight = {colours.mauve, colours.statusline_bg, "bold"}
 	}
 }
 
@@ -94,7 +96,7 @@ section.right[1] = {
 			return " "
 		end,
 		condition = require("galaxyline.providers.vcs").check_git_workspace,
-		highlight = {colours.orange, colours.statusline_bg}
+		highlight = {colours.flamingo, colours.statusline_bg}
 	}
 }
 
@@ -103,8 +105,8 @@ section.right[2] = {
 		provider = "GitBranch",
 		condition = require("galaxyline.providers.vcs").check_git_workspace,
 		separator = "",
-		separator_highlight = {colours.purple, colours.statusline_bg},
-		highlight = {colours.orange, colours.statusline_bg, "bold"}
+		separator_highlight = {colours.mauve, colours.statusline_bg},
+		highlight = {colours.flamingo, colours.statusline_bg, "bold"}
 	}
 }
 

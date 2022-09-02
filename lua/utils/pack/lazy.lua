@@ -1,8 +1,6 @@
-local defer_fn = vim.defer_fn
+local M = {}
 
--- _G.lazy = require'utils.pack'.lazy
-
-_G.lazy = function(plugin, timer)
+M.lazy = function(plugin, timer)
 	if plugin then
 		timer = timer or 0
 		defer_fn(function()
@@ -10,3 +8,5 @@ _G.lazy = function(plugin, timer)
 		end, timer)
 	end
 end
+
+return M

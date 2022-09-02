@@ -1,13 +1,14 @@
-local present, pack = pcall(require, 'utils.pack')
+local present, pack = pcall(require, 'plugins.pack')
 
 if not present then
 	return false
 end
 
 local packer = pack.packer
-local use = require 'utils.pack'.use
 
-local conf = require('core.configs')
+local use = require'utils.pack.use'(packer)
+
+local conf = require('plugins.configs')
 
 return packer.startup(function()
 	-- Important plugins
@@ -58,6 +59,11 @@ return packer.startup(function()
 	}
 
 	-- UI plugins
+	use "catppuccin/nvim" {
+		as = "theme",
+		run = ":CatppuccinCompile",
+		config = conf.theme,
+	}
 	use 'norcalli/nvim-colorizer.lua' {
 		config = conf.nvim_colorizer,
 		setup = 'nvim-colorizer.lua',
@@ -72,6 +78,7 @@ return packer.startup(function()
 	use 'ntbbloodbath/galaxyline.nvim' {
 		config = conf.galaxyline,
 		requires = { 'kyazdani42/nvim-web-devicons' },
+		after = "theme",
 		setup = 'galaxyline.nvim'
 	}
 	use 'lukas-reineke/indent-blankline.nvim' {

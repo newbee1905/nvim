@@ -1,6 +1,4 @@
-local cmd, fn, uv, defer_fn = vim.cmd, vim.fn, vim.loop, vim.defer_fn
 local data_dir = require'global'.data_dir
-local vim_path = require'global'.vim_path
 
 local M = {}
 
@@ -55,18 +53,5 @@ M.packer.init({
 	auto_clean = true,
 	compile_on_sync = true,
 })
-
-M.use = function(plugin)
-	return function(opts)
-		opts = opts or {}
-		if not opts[1] or fn.isdirectory(fn.expand(opts[1])) == 0 then opts[1] = plugin end
-		if type(opts.setup) == "string" then
-			opts.setup = "lazy'"..opts.setup.."'"
-		end
-		if opts.setup then opts.opt = true end
-
-		packer.use(opts)
-	end
-end
 
 return M
