@@ -56,15 +56,6 @@ M.packer.init({
 	compile_on_sync = true,
 })
 
-M.lazy = function(plugin, timer)
-	if plugin then
-		timer = timer or 0
-		defer_fn(function()
-			require'packer'.loader(plugin)
-		end, timer)
-	end
-end
-
 M.use = function(plugin)
 	return function(opts)
 		opts = opts or {}
