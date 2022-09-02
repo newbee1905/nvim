@@ -10,12 +10,13 @@ local use = require 'utils.pack'.use
 local conf = require('core.configs')
 
 return packer.startup(function()
-	local lazy = require 'utils.pack'.lazy
-
 	-- Important plugins
 	use 'lewis6991/impatient.nvim' { config = conf.impatient }
 	-- use 'nathom/filetype.nvim'
-	use 'wbthomason/packer.nvim' { opt = true }
+	use 'wbthomason/packer.nvim' {
+		opt = true,
+		config = [[vim.g.startuptime_tries = 10]]
+	}
 
 	-- Utilites
 	use "nvim-lua/plenary.nvim" { module = "plenary" }
@@ -81,11 +82,11 @@ return packer.startup(function()
 		config = conf.gitsigns,
 		setup = lazy('gitsigns.nvim', 40),
 	}
-	use 'andweeb/presence.nvim' {
-		-- opt = true,
-		config = conf.presence,
-		-- setup = lazy'presence.nvim',
-	}
+	-- use 'andweeb/presence.nvim' {
+	-- 	-- opt = true,
+	-- 	config = conf.presence,
+	-- 	-- setup = lazy'presence.nvim',
+	-- }
 
 	-- Highlight/Syntax plugins
 	-- use newbee1905/nightfox.nvim' {
