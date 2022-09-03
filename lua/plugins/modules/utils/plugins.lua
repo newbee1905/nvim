@@ -50,17 +50,6 @@ use 'nvim-telescope/telescope.nvim' {
 	after = 'telescope-packer.nvim'
 }
 
--- LSP
-use 'neovim/nvim-lspconfig' {
-	after = 'coq_nvim',
-	setup = 'nvim-lspconfig',
-}
-use 'williamboman/nvim-lsp-installer' {
-	after = 'nvim-lspconfig',
-	config = conf.nvim_lsp_installer,
-	setup = 'nvim-lsp-installer',
-}
-
 -- Movement
 use 'xiyaowong/accelerated-jk.nvim' {
 	config = conf.accelerated_jk,
