@@ -1,11 +1,14 @@
 require('options')
 
-_G.cmd, _G.fn, _G.uv, _G.defer_fn = vim.cmd, vim.fn, vim.loop, vim.defer_fn
+_G.fn, _G.uv, _G.defer_fn, _G.api, _G.lazy_fn, _G.notify = vim.fn, vim.loop, vim.defer_fn, vim.api, vim.schedule, vim.notify
+_G.cmd = api.nvim_command
 
-_G.lazy = require'utils.pack.lazy'.lazy
+_G.lazy = require 'utils.pack.lazy'.lazy
 
-vim.defer_fn(function()
+lazy_fn(function()
 	require('autocmd')
-	require('plugins')
 	require('mappings')
-end, 0)
+	local pack = require('plugins')
+	pack.ensure_plugins()
+	pack.load_compile()
+end)

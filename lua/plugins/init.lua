@@ -1,194 +1,154 @@
-local present, pack = pcall(require, 'plugins.pack')
+local paths = require 'utils.paths'
+local data_dir, modules_dir = paths.data_dir, paths.modules_dir
+local nvim_compiled = data_dir .. 'lua/nvim_compiled.lua'
 
-if not present then
-	return false
+local packer = nil
+
+local Packer = {}
+Packer.__index = Packer
+
+function Packer:load_plugins()
+	self.repos = {}
+
+	local tmp = vim.split(fn.globpath(modules_dir, '*/plugins.lua'), '\n')
+	for _, f in ipairs(tmp) do
+		-- Add plugins into self.repos
+		-- with register_plugin
+		require(string.match(f, 'lua/(.+).lua$'))
+	end
 end
 
-local packer = pack.packer
-
-local use = require'utils.pack.use'(packer)
-
-local conf = require('plugins.configs')
-
-return packer.startup(function()
-	-- Important plugins
-	use 'lewis6991/impatient.nvim' { config = conf.impatient }
-	-- use 'nathom/filetype.nvim'
-	use 'wbthomason/packer.nvim' {
-		opt = true,
-		config = [[vim.g.startuptime_tries = 10]]
-	}
-
-	-- Utilites
-	use "nvim-lua/plenary.nvim" { module = "plenary" }
-	use 'dstein64/vim-startuptime' { opt = true }
-
-	use 'mbbill/undotree' {
-		config = conf.undotree,
-		setup = 'undotree',
-	}
-	use 'numToStr/Comment.nvim' {
-		config = conf.comment,
-		setup = 'Comment.nvim'
-	}
-	use 'preservim/vim-pencil' {
-		ft = { 'markdown', '' },
-	}
-	use 'folke/zen-mode.nvim' {
-		conf = conf.zen_mode,
-		ft = { 'markdown', '' },
-	}
-
-	use "SmiteshP/nvim-gps" {
-		after = "nvim-treesitter",
-		config = conf.nvim_gps,
-		setup = 'nvim-gps'
-	}
-
-	-- Telescope
-	use 'nvim-telescope/telescope-fzf-native.nvim' {
-		run = 'make',
-		setup = 'telescope-fzf-native.nvim'
-	}
-	use 'nvim-telescope/telescope-packer.nvim' {
-		setup = 'telescope-packer.nvim'
-	}
-	use 'nvim-telescope/telescope.nvim' {
-		config = conf.telescope,
-		setup = 'telescope.nvim'
-	}
-
-	-- UI plugins
-	use "catppuccin/nvim" {
-		as = "theme",
-		run = ":CatppuccinCompile",
-		config = conf.theme,
-	}
-	use 'norcalli/nvim-colorizer.lua' {
-		config = conf.nvim_colorizer,
-		setup = 'nvim-colorizer.lua',
-	}
-	-- use glepnir/dashboard-nvim' {
-	-- 	config = conf.dashboard,
-	-- }
-	use 'goolord/alpha-nvim' {
-		requires = { 'kyazdani42/nvim-web-devicons' },
-		config = conf.dashboard,
-	}
-	use 'ntbbloodbath/galaxyline.nvim' {
-		config = conf.galaxyline,
-		requires = { 'kyazdani42/nvim-web-devicons' },
-		after = "theme",
-		setup = 'galaxyline.nvim'
-	}
-	use 'lukas-reineke/indent-blankline.nvim' {
-		config = conf.indent_blankline,
-		setup = 'indent-blankline.nvim',
-	}
-	use 'lewis6991/gitsigns.nvim' {
-		config = conf.gitsigns,
-		setup = lazy('gitsigns.nvim', 40),
-	}
-	-- use 'andweeb/presence.nvim' {
-	-- 	-- opt = true,
-	-- 	config = conf.presence,
-	-- 	-- setup = lazy'presence.nvim',
-	-- }
-
-	-- Highlight/Syntax plugins
-	-- use newbee1905/nightfox.nvim' {
-	-- 	config = conf.nightfox,
-	-- }
-	use 'nvim-treesitter/nvim-treesitter' {
-		-- after = 'telescope.nvim',
-		config = conf.nvim_treesitter,
-		setup = 'nvim-treesitter',
-	}
-	use 'nvim-treesitter/nvim-treesitter-textobjects' {
-		after = 'nvim-treesitter',
-		setup = 'nvim-treesitter-textobjects',
-	}
-	-- Add supoprt for crystal programming language
-	use 'vim-crystal/vim-crystal'
-	-- Add supoprt for moonscript programming language
-	use 'pigpigyyy/moonplus-vim'
-	-- Add supoprt for rhai programming language
-	use 'kuon/rhai.vim'
-	-- Latex support
-	use 'lervag/vimtex' {
-		config = conf.vimtex,
-		setup = function()
-			vim.api.nvim_create_autocmd("BufEnter", {
-				pattern = "*.tex",
-				callback = function()
-					require 'utils.pack'.lazy 'vimtex'
-				end
-			})
-		end
-	}
-
-	use 'https://git.sr.ht/~newbee1905/hare.vim' { module = "hare.nvim" }
-
-	-- Complition
-	use 'ms-jpq/coq_nvim' {
-		branch = 'coq',
-		config = conf.coq_nvim,
-		setup = 'coq_nvim',
-	}
-	use 'ms-jpq/coq.artifacts' {
-		after = 'coq_nvim',
-		branch = 'artifacts',
-	}
-	use 'ms-jpq/coq.thirdparty' {
-		after = 'coq_nvim',
-		branch = '3p',
-	}
-
-	-- LSP
-	use 'neovim/nvim-lspconfig' {
-		after = 'coq_nvim',
-		setup = 'nvim-lspconfig',
-	}
-	use 'williamboman/nvim-lsp-installer' {
-		after = 'nvim-lspconfig',
-		config = conf.nvim_lsp_installer,
-		setup = 'nvim-lsp-installer',
-	}
-
-	-- Movement
-	use 'xiyaowong/accelerated-jk.nvim' {
-		config = conf.accelerated_jk,
-		setup = 'accelerated-jk.nvim',
-	}
-	use 'karb94/neoscroll.nvim' {
-		config = conf.neoscroll,
-		setup = 'neoscroll.nvim',
-	}
-	use 'ggandor/lightspeed.nvim' {
-		config = conf.lightspeed,
-		setup = 'lightspeed.nvim'
-	}
-
-	-- Extras + Custom Plugin
-	use 'max397574/better-escape.nvim' {
-		config = conf.better_escape,
-		setup = 'better-escape.nvim',
-	}
-	use 'windwp/nvim-autopairs' {
-		event = 'InsertEnter',
-		config = conf.nvim_autpairs,
-	}
-	-- R.I.P - private plugin
-	-- Mah Fiend is lazy now
-	-- use tuwuna/cp.nvim' {
-	-- 	opt = true,
-	-- 	config = conf.cp,
-	-- 	setup = lazy('cp.nvim', 100),
-	-- }
-
-	local present, compile = pcall(require, 'nvim_compiled')
-	if not present then
-		packer.sync()
-		require('nvim_compiled')
+function Packer:load_packer()
+	if not packer then
+		cmd [[packadd packer.nvim]]
+		packer = require('packer')
 	end
-end)
+
+	packer.init({
+		display = {
+			open_fn = function()
+				return require 'packer.util'.float({ border = 'rounded' })
+			end,
+			prompt_border = 'rounded',
+		},
+		git = {
+			clone_timeout = 400,
+		},
+		profile = {
+			enable = true,
+		},
+		package_root = data_dir .. 'pack',
+		compile_path = nvim_compiled,
+		auto_clean = true,
+		compile_on_sync = true,
+	})
+	packer.reset()
+
+	local use = packer.use
+
+	self:load_plugins()
+	use({ 'wbthomason/packer.nvim', opt = true })
+	for _, repo in ipairs(self.repos) do
+		use(repo)
+	end
+end
+
+function Packer:init_ensure_plugins()
+	local packer_dir = data_dir .. 'pack/packer/opt/packer.nvim'
+	local state = uv.fs_stat(packer_dir)
+
+	if not state then
+		fn.system({
+			'git',
+			'clone',
+			'https://github.com/wbthomason/packer.nvim',
+			'--depth',
+			'20',
+			packer_dir,
+		})
+
+		uv.fs_mkdir(data_dir .. 'lua', 511, function()
+			assert("make compile path dir faield")
+		end)
+		self:load_packer()
+		packer.sync()
+	end
+end
+
+local plugins = setmetatable({}, {
+	__index = function(_, key)
+		if not packer then
+			Packer:load_packer()
+		end
+		return packer[key]
+	end,
+})
+
+function plugins.ensure_plugins()
+	Packer:init_ensure_plugins()
+end
+
+function plugins.register_plugin(repo)
+	return function(opts)
+		opts = opts or {}
+		if not opts[1] or fn.isdirectory(fn.expand(opts[1])) == 0 then opts[1] = repo end
+		if type(opts.setup) == "string" then
+			opts.setup = "lazy'" .. opts.setup .. "'"
+		end
+		if opts.setup then opts.opt = true end
+
+		table.insert(Packer.repos, opts)
+	end
+end
+
+-- function plugins.compile_notify()
+--   plugins.compile()
+--   vim.notify('Compile Done!','info',{ title = 'Packer' })
+-- end
+
+function plugins.auto_compile()
+	local file = vim.fn.expand('%:p')
+	if not file:match(paths.vim_path) then
+		return
+	end
+
+	if file:match('plugins.lua') or file:match('configs.lua') then
+		plugins.clean()
+	end
+	plugins.compile()
+	notify('Recompiled Succesfully', 'info', { title = 'Packer' })
+	require('nvim_compiled')
+end
+
+function plugins.load_compile()
+	if vim.fn.filereadable(nvim_compiled) == 1 then
+		require('nvim_compiled')
+	else
+		notify('Run PackerSync or PackerCompile', 'info', { title = 'Packer' })
+	end
+
+	local cmds = {
+		'Compile',
+		'Install',
+		'Update',
+		'Sync',
+		'Clean',
+		'Status',
+	}
+	for _, cmd in ipairs(cmds) do
+		api.nvim_create_user_command('Packer' .. cmd, function()
+			require('plugins')[fn.tolower(cmd)]()
+		end, {})
+	end
+
+	local PackerHooks = vim.api.nvim_create_augroup('PackerHooks', {})
+	vim.api.nvim_create_autocmd('User', {
+		pattern = 'PackerCompileDone',
+		callback = function()
+			vim.notify('Compile Done!', vim.log.levels.INFO, { title = 'Packer' })
+		end,
+		group = PackerHooks,
+	})
+end
+
+return plugins
